@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+<script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<head>
+  <meta charset="UTF-8">
+  <title th:text="#{details_about} + ' ' + ${guest.getName()}"></title>
+</head>
+<body>
+<header th:insert="~{navbar.html}"></header>
+<div class="container mt-5 text-center pb-2">
+  <figure class="figure figure mx-auto">
+    <h2 th:text="#{details_about} + ' ' + ${guest.getName()}"></h2>
+    <img th:src="@{'/images/' + ${guest.getName().toLowerCase().replace(' ', '-')} + '.jpg'}" alt="Guest" class="img-fluid mb-3" width="200" height="400"/>
+    <figcaption class="figure-caption">
+      <p><strong th:text="#{birth_date}"></strong>: <span th:text="${guest.getDateOfBirth()}"></span></p>
+      <p><strong th:text="#{nationality}"></strong>: <span th:text="${guest.getNationality()}"></span></p>
+      <p><strong th:text="#{hotel_name}"></strong>: <span th:text="${guest.getHotel().getName()}"></span></p>
+      <p><strong th:text="#{room_number}"></strong>: <span th:text="${guest.roomListString()}"></span></p>
+      <p><strong th:text="#{room_type}"></strong>: <span th:text="${guest.roomTypeListString()}"></span></p>
+    </figcaption>
+  </figure>
+  <p><a th:href="@{/guests}" class="btn btn-danger" th:text="#{back_to_guests_button}"></a></p>
+</div>
+<footer th:insert="~{footer.html}"></footer>
+</body>
+</html>
