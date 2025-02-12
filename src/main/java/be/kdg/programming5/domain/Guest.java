@@ -26,10 +26,10 @@ public class Guest {
     @Column(name = "nationality")
     private Nationality nationality;
 
-    @OneToMany(mappedBy = "guest", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "guest", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<GuestRoom> guestRooms = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "hotel_id", nullable = false)
     private Hotel hotel;
 

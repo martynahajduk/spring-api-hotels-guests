@@ -20,11 +20,11 @@ public class Hotel {
     @Column(name = "location")
     private String location;
 
-    @OneToMany(mappedBy = "hotel", orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "hotel", orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Room> rooms = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "hotel", orphanRemoval = true)
+    @OneToMany(mappedBy = "hotel", orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Guest> guests = new ArrayList<>();
 
 

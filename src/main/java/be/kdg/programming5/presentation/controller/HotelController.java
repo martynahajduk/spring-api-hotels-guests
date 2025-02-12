@@ -59,14 +59,14 @@ public class HotelController {
     }
 
     @GetMapping("/addhotel")
-    public String showAddHotelForm(Model model, HttpSession session) {
+    public String showAddHotelForm(Model model) {
         model.addAttribute("hotelViewModel", new HotelViewModel());
         return "addhotel";
     }
 
     @PostMapping("/addhotel")
     public String addHotel(@Valid @ModelAttribute("hotelViewModel") HotelViewModel hotelViewModel,
-                           BindingResult errors, HttpSession session) {
+                           BindingResult errors) {
         if (errors.hasErrors()) {
             return "addhotel";
         }
@@ -76,7 +76,7 @@ public class HotelController {
 
 
     @GetMapping("/index")
-    public String showMain(Model model, HttpSession session) {
+    public String showMain(Model model) {
         model.addAttribute("hotels", hotelService.getAllHotels());
         return "index";
     }

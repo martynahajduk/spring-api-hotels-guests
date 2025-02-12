@@ -31,7 +31,8 @@ public interface GuestRepository extends JpaRepository<Guest, UUID> {
     @Query("SELECT g FROM Guest g " +
             "LEFT JOIN FETCH g.guestRooms gr " +
             "LEFT JOIN FETCH gr.room r " +
-            "LEFT JOIN FETCH g.hotel h")
+            "LEFT JOIN FETCH g.hotel h " +
+            "LEFT JOIN FETCH r.hotel rh")
     List<Guest> findAllWithBookings();
 
 }
