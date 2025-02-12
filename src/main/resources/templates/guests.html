@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+<script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}">
+</script>
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{guest_list}"></title>
+</head>
+<body>
+<header th:insert="~{navbar.html}"></header>
+<div class="container px-5">
+    <h1 class="text-center" th:text="#{guest_list}"></h1><br>
+
+    <table class="table table-sm p-5">
+        <tr>
+            <th th:text="#{guest_id}"></th>
+            <th th:text="#{guest_name}"></th>
+            <th th:text="#{birth_date}"></th>
+            <th th:text="#{nationality}"></th>
+            <th th:text="#{hotel_name}"></th>
+            <th th:text="#{room_number}"></th>
+            <th th:text="#{room_type}"></th>
+            <th th:text="#{delete}"></th>
+        </tr>
+        <tr th:each="guest : ${guests}">
+            <td th:text="${guest.getGuestId()}"></td>
+            <td th:text="${guest.getName()}"></td>
+            <td th:text="${guest.getDateOfBirth()}"></td>
+            <td th:text="${guest.getNationality()}"></td>
+            <td th:text="${guest.getHotel().getName()}"></td>
+            <td th:text="${guest.roomListString()}"></td>
+            <td th:text="${guest.roomTypeListString()}"></td>
+            <td>
+                <form th:action="@{/guests/delete/{id}(id=${guest.getGuestId()})}" method="post" style="display:inline;">
+                    <button th:text="#{delete}" type="submit" class="btn btn-danger"></button>
+                </form>
+            </td>
+        </tr>
+    </table><br>
+
+    <div class="container mt-4 p-5">
+        <div class="row">
+            <div class="col-md-6 mb-4" th:each="guest : ${guests}">
+                <a th:href="@{/guests/guest/{id}(id=${guest.guestId})}" style="text-decoration: none; color: inherit;">
+                    <div class="card mb-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img th:src="@{'/images/' + ${guest.name.toLowerCase().replace(' ', '-')} + '.jpg'}"
+                                     class="img-fluid rounded-start"
+                                     th:alt="${guest.name}" />
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title" th:text="${guest.name}"></h5>
+                                    <p class="card-text" th:text="#{birth_date}+': '+ ${guest.dateOfBirth}"></p>
+                                    <p class="card-text" th:text="#{nationality}+': '+${guest.nationality}"></p>
+                                    <p class="card-text" th:text="#{hotel_name}+': '+${guest.hotel.name}"></p>
+                                    <p class="card-text" th:text="#{room_number}+': '+${guest.roomListString()}"></p>
+                                    <p class="card-text" th:text="#{room_type}+': '+${guest.roomTypeListString()}"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="text-center" th:text="#{filter_guests}"></h3><br>
+    <form action="/guests/filter" method="post">
+        <div class="row mb-3">
+            <label for="birthDate" class="col-sm-2 col-form-label" th:text="#{birth_date}"></label>
+            <div class="col-lg-10 col-md-2">
+            <input type="date" class="form-control col-sm-10" id="birthDate" name="birthDate">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="nationality" class="col-sm-2 col-form-label" th:text="#{nationality}"></label>
+            <div class="col-lg-10 col-md-2">
+                <input type="text" class="form-control" id="nationality" name="nationality">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-danger" th:text="#{filter_button}"></button>
+    </form><br>
+</div>
+<footer th:insert="~{footer.html}"></footer>
+</body>
+</html>

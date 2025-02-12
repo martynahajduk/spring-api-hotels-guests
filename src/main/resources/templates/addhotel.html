@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+<script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}">
+</script>
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{add_hotel_button}"></title>
+</head>
+<body>
+<header th:insert="~{navbar.html}"></header>
+<div class="container px-5">
+    <h1 class="text-center" th:text="#{add_hotel}"></h1><br>
+    <form th:action="@{/hotels/addhotel}" th:object="${hotelViewModel}" method="post">
+        <div th:if="${#fields.hasErrors()}" class="alert alert-danger">
+            <p th:text="#{error_text}"></p>
+        </div>
+        <div class="row mb-3">
+            <label for="name" class="col-sm-2 col-form-label" th:text="#{hotel_name}"></label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" th:field="*{name}" id="name" placeholder="Enter name">
+                <div th:if="${#fields.hasErrors('name')}" class="alert alert-danger mt-2" th:errors="*{name}"></div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="name" class="col-sm-2 col-form-label" th:text="#{location}"></label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" th:field="*{location}" id="location" placeholder="Enter location">
+                <div th:if="${#fields.hasErrors('location')}" class="alert alert-danger mt-2" th:errors="*{location}"></div>
+            </div>
+        </div>
+        <!--
+        <label for="image" class="col-sm-2 col-form-label" th:text="#{upload_image}"></label>
+        <div class="col-sm-10">
+            <input class="form-control" type="file" id="image" name="image" accept="image/*" required>
+        </div> -->
+    <button type="submit" class="btn btn-danger" th:text="#{add_hotel_button}"></button>
+</form><br></div>
+<footer th:insert="~{footer.html}"></footer>
+</body>
+</html>

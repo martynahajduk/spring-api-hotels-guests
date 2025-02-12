@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+<script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}">
+</script>
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{details_about} + ' ' + ${hotel.name}"></title>
+</head>
+<body>
+<header th:insert="~{navbar.html}"></header>
+<div class="container mt-5 text-center pb-2">
+    <figure class="figure figure mx-auto">
+        <h2 th:text="#{details_about} + ' ' + ${hotel.name}"></h2>
+        <img th:src="@{'/images/' + ${hotel.name.toLowerCase().replace(' ', '-')} + '.jpg'}" alt="Hotel" class="img-fluid mb-3" width="200" height="400"/>
+        <figcaption class="figure-caption">
+            <p><strong th:text="#{hotel_name}"></strong>: <span th:text="${hotel.name}"></span></p>
+            <p><strong th:text="#{location}"></strong>: <span th:text="${hotel.location}"></span></p>
+        </figcaption>
+    </figure>
+    <h3 th:text="#{guests_list}"></h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th th:text="#{guest_name}"></th>
+            <th th:text="#{birth_date}"></th>
+            <th th:text="#{nationality}"></th>
+            <th th:text="#{details}"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="guest : ${guests}">
+            <td th:text="${guest.name}"></td>
+            <td th:text="${guest.dateOfBirth}"></td>
+            <td th:text="${guest.nationality}"></td>
+            <td>
+                <a th:href="@{/guests/guest/{id}(id=${guest.guestId})}" class="btn btn-danger" th:text="#{details}"></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <p><a th:href="@{/hotels}" class="btn btn-danger" th:text="#{back_to_hotels_button}"></a></p></div>
+<footer th:insert="~{footer.html}"></footer>
+</body>
+</html>
