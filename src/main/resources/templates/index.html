@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
-<header th:insert="~{navbar.html}"></header>
+<header th:insert="~{fragments/navbar.html}"></header>
 <div class="container px-5 py-5">
     <h1 class="text-center" th:text="#{welcome}"></h1><br>
     <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
@@ -98,6 +98,6 @@
         </div>
     </div>
 </div>
-<footer th:insert="~{footer.html}"></footer>
+<footer th:insert="~{fragments/footer.html}"></footer>
 </body>
 </html>

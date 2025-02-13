@@ -7,7 +7,7 @@
   <title th:text="#{details_about} + ' ' + ${guest.getName()}"></title>
 </head>
 <body>
-<header th:insert="~{navbar.html}"></header>
+<header th:insert="~{fragments/navbar.html}"></header>
 <div class="container mt-5 text-center pb-2">
   <figure class="figure figure mx-auto">
     <h2 th:text="#{details_about} + ' ' + ${guest.getName()}"></h2>

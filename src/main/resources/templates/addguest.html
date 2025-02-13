@@ -7,7 +7,7 @@
     <title th:text="#{add_guest_button}"></title>
 </head>
 <body>
-<header th:insert="~{navbar.html}"></header>
+<header th:insert="~{fragments/navbar.html}"></header>
 <div class="container px-5">
     <h1 class="text-center" th:text="#{add_guest}"></h1><br>
     <form th:action="@{/guests/addguest}" th:object="${guestViewModel}" method="post">
@@ -68,6 +68,6 @@
         -->
         <button type="submit" class="btn btn-danger" th:text="#{add_guest_button}"></button>
     </form><br></div>
-<footer th:insert="~{footer.html}"></footer>
+<footer th:insert="~{fragments/footer.html}"></footer>
 </body>
 </html>

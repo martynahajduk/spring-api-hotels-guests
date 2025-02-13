@@ -8,7 +8,7 @@
     <title th:text="#{hotel_list}"></title>
 </head>
 <body>
-<header th:insert="~{navbar.html}"></header>
+<header th:insert="~{fragments/navbar.html}"></header>
 <div class="container px-5">
 <h1 class="text-center" th:text="#{hotel_list}"></h1><br>
 <table class="table table-sm p-5">
@@ -66,6 +66,6 @@
     </div>
     <button type="submit" class="btn btn-danger" th:text="#{filter_button}"></button>
 </form><br></div>
-<footer th:insert="~{footer.html}"></footer>
+<footer th:insert="~{fragments/footer.html}"></footer>
 </body>
 </html>
