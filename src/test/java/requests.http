@@ -1,0 +1,19 @@
+### all guests
+GET http://localhost:8080/api/guests
+Accept: application/json
+
+### one guest, we have this really annoying UUID so it changes all the time, so it doesnt work rn
+GET http://localhost:8080/api/guests/1d6fad27-7963-4489-aa48-6c4655956e54
+Accept: application/json
+
+### one guest but with oopsie
+GET http://localhost:8080/api/guests/00000000-0000-0000-0000-000000000000
+Accept: application/json
+
+### deleting guest, here as well
+DELETE http://localhost:8080/api/guests/049a18aa-8d27-45fc-a572-4553844b2f2d
+Accept: application/json
+
+### deleting guest but kapoot
+DELETE http://localhost:8080/api/guests/049a18aa-8d27-45fc-a572-4553844b2f2d
+Accept: application/json

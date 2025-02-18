@@ -2,7 +2,6 @@ package be.kdg.programming5.service;
 
 import be.kdg.programming5.domain.Guest;
 import be.kdg.programming5.domain.Nationality;
-import be.kdg.programming5.domain.RoomType;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,6 +16,6 @@ public interface GuestServiceInterface {
 
     Guest findGuestById(UUID id);
 
-    void deleteGuest(UUID guestId);
+    boolean deleteGuest(UUID guestId);
 
 }

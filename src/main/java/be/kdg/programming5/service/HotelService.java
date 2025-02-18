@@ -1,7 +1,9 @@
 package be.kdg.programming5.service;
 
+import be.kdg.programming5.domain.GuestRoom;
 import be.kdg.programming5.domain.Hotel;
 import be.kdg.programming5.domain.Room;
+import be.kdg.programming5.repository.GuestRoomRepository;
 import be.kdg.programming5.repository.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,14 +11,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class HotelService implements HotelServiceInterface {
     private final HotelRepository hotelRepository;
+    private final GuestRoomRepository guestRoomRepository;
 
     @Autowired
-    public HotelService(HotelRepository hotelRepository) {
+    public HotelService(HotelRepository hotelRepository, GuestRoomRepository guestRoomRepository) {
         this.hotelRepository = hotelRepository;
+        this.guestRoomRepository = guestRoomRepository;
     }
 
     @Transactional
@@ -58,13 +63,10 @@ public class HotelService implements HotelServiceInterface {
         Hotel hotel = hotelRepository.findById(hotelId)
                 .orElseThrow(() -> new IllegalArgumentException("Hotel not found"));
 
-        hotel.getRooms().forEach(room -> {
-            room.getGuestRooms().forEach(guestRoom -> {
-                guestRoom.setGuest(null);
-                guestRoom.setRoom(null);
-            });
-        });
-
+        List<GuestRoom> guestRooms = hotel.getRooms().stream()
+                .flatMap(room -> room.getGuestRooms().stream())
+                .collect(Collectors.toList());
+        guestRoomRepository.deleteAll(guestRooms);
         hotelRepository.deleteById(hotelId);
     }
 }

@@ -83,8 +83,9 @@ public class GuestService implements GuestServiceInterface {
 
     @Override
     @Transactional
-    public void deleteGuest(UUID guestId) {
+    public boolean deleteGuest(UUID guestId) {
         guestRepository.deleteById(guestId);
+        return false;
     }
 
 
