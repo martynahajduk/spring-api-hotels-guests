@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface GuestServiceInterface {
-    Guest addGuest(String name, LocalDate birthDate, Nationality nationality, String hotelName, int roomNumber);
+    Guest addGuest(String name, LocalDate birthDate, Nationality nationality, String hotelName, List<Integer> roomNumber);
 
     List<Guest> getAllGuests();
 

@@ -27,7 +27,7 @@ public class GuestService implements GuestServiceInterface {
                           LocalDate birthDate,
                           Nationality nationality,
                           String hotelName,
-                          int roomNumber) {
+                          List<Integer> roomNumber) {
         Hotel hotel = hotelRepository.findByNameContainingIgnoreCase(hotelName)
                 .stream()
                 .findFirst()
@@ -35,7 +35,7 @@ public class GuestService implements GuestServiceInterface {
 
         Room room = hotel.getRooms()
                 .stream()
-                .filter(r -> r.getRoomNumber() == roomNumber)
+                .filter(r -> roomNumber.contains(r.getRoomNumber()))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Room not found"));
 

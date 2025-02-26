@@ -5,6 +5,7 @@ import jakarta.validation.constraints.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class GuestViewModel {
     @NotBlank(message = "{guest.name.required}")
@@ -23,7 +24,7 @@ public class GuestViewModel {
     private String hotelName;
 
     @Min(value=1, message = "{guest.roomNumber.min}")
-    private int roomNumber;
+    private List<Integer> roomNumber;
 
     public @NotBlank(message = "{guest.name.required}") @Size(min = 2, max = 50, message = "{guest.name.size}") String getName() {
         return name;
@@ -57,12 +58,11 @@ public class GuestViewModel {
         this.hotelName = hotelName;
     }
 
-    @Min(value=1, message = "{guest.roomNumber.min}")
-    public int getRoomNumber() {
+    public List<Integer> getRoomNumber() {
         return roomNumber;
     }
 
-    public void setRoomNumber(@Min(value = 1, message = "{guest.roomNumber.min}") int roomNumber) {
+    public void setRoomNumber(List<Integer> roomNumber) {
         this.roomNumber = roomNumber;
     }
 }

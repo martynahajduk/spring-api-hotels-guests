@@ -23,3 +23,167 @@
 - **Hotel ↔ Guests**: One-to-many (A hotel can have many guests, but each guest is associated with one hotel).
 
 ## Build and Run Instructions
+
+# Week 2
+### Fetching all guests
+GET http://localhost:8080/api/guests
+<br>Accept: application/json
+
+**Response**: `HTTP/1.1 200 - OK`
+
+[
+{
+"name": "Aria Voss",
+"dateOfBirth": "1993-04-11",
+"nationality": "AUSTRALIAN",
+"hotelName": "Steigenberger Wiltcher's",
+"RoomNumbers": [
+101
+]
+},
+{
+"name": "Lysander Quinn",
+"dateOfBirth": "1988-08-24",
+"nationality": "BELGIAN",
+"hotelName": "Steigenberger Wiltcher's",
+"RoomNumbers": [
+201
+]
+},
+{
+"name": "Dorian Thorne",
+"dateOfBirth": "1985-02-03",
+"nationality": "BRAZILIAN",
+"hotelName": "Hotel De Witte Lelie",
+"RoomNumbers": [
+401,
+501
+]
+},
+{
+"name": "Felix Hawke",
+"dateOfBirth": "1991-11-10",
+"nationality": "CROATIAN",
+"hotelName": "Hotel De Witte Lelie",
+"RoomNumbers": [
+501
+]
+},
+{
+"name": "Niamh Callahan",
+"dateOfBirth": "1987-07-19",
+"nationality": "SPANISH",
+"hotelName": "Hotel 't Sandt Antwerpen",
+"RoomNumbers": [
+101
+]
+},
+{
+"name": "Isolde Ravenswood",
+"dateOfBirth": "1994-12-25",
+"nationality": "AMERICAN",
+"hotelName": "Hotel 't Sandt Antwerpen",
+"RoomNumbers": [
+201
+]
+},
+{
+"name": "Orion Ashford",
+"dateOfBirth": "1990-03-30",
+"nationality": "HUNGARIAN",
+"hotelName": "Hotel Julien Antwerp",
+"RoomNumbers": [
+301,
+401
+]
+},
+{
+"name": "Selene Hawthorne",
+"dateOfBirth": "1989-06-14",
+"nationality": "GREEK",
+"hotelName": "Hotel Julien Antwerp",
+"RoomNumbers": [
+401
+]
+},
+{
+"name": "Calista Evernight",
+"dateOfBirth": "1995-01-18",
+"nationality": "ROMANIAN",
+"hotelName": "Pillows Grand Hotel Reylof",
+"RoomNumbers": [
+301
+]
+},
+{
+"name": "Soren Albrecht",
+"dateOfBirth": "1983-09-05",
+"nationality": "ROMANIAN",
+"hotelName": "Pillows Grand Hotel Reylof",
+"RoomNumbers": [
+401
+]
+},
+{
+"name": "Alina Dimova",
+"dateOfBirth": "2004-11-05",
+"nationality": "MOLDOVAN",
+"hotelName": "Pillows Grand Hotel Reylof",
+"RoomNumbers": [
+301,
+401,
+501
+]
+},
+{
+"name": "Carys Coetzee",
+"dateOfBirth": "2004-06-08",
+"nationality": "SOUTH_AFRICAN",
+"hotelName": "Pillows Grand Hotel Reylof",
+"RoomNumbers": [
+501
+]
+}
+]
+
+
+### Searching for one guest
+#### (UUID changes each time, so it doesn't work with this UUID anymore)
+GET http://localhost:8080/api/guests/7c0d0d1a-9fe8-4c45-8c8a-d0ffbcd1ae79
+<br>Accept: application/json
+
+**Response**: `HTTP/1.1 200 - OK`
+
+{
+"name": "Aria Voss",
+"dateOfBirth": "1993-04-11",
+"nationality": "AUSTRALIAN",
+"hotelName": "Steigenberger Wiltcher's",
+"RoomNumbers": [
+101
+]
+}
+
+### Searching for one guest, but it doesn't exist
+GET http://localhost:8080/api/guests/00000000-0000-0000-0000-000000000000
+<br>Accept: application/json
+
+**Response**: `HTTP/1.1 404 - Not Found`
+
+{
+"error": "Guest not found"
+}
+
+### Deleting guest
+#### (UUID changes each time, so it doesn't work with this UUID anymore)
+DELETE http://localhost:8080/api/guests/1242cb96-305f-4ced-a8f6-4fb096c65da7
+<br>Accept: application/json
+
+**Response**: `HTTP/1.1 404 - Not Found`
+
+### Deleting guest that doesn't exist
+DELETE http://localhost:8080/api/guests/00000000-0000-0000-0000-000000000000
+<br>Accept: application/json
+
+**Response**: `HTTP/1.1 404 - Not Found`
+

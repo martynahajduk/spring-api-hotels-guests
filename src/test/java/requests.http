@@ -3,7 +3,7 @@ GET http://localhost:8080/api/guests
 Accept: application/json
 
 ### one guest, we have this really annoying UUID so it changes all the time, so it doesnt work rn
-GET http://localhost:8080/api/guests/1d6fad27-7963-4489-aa48-6c4655956e54
+GET http://localhost:8080/api/guests/46443957-e64f-4edd-9b72-275330ec7fbb
 Accept: application/json
 
 ### one guest but with oopsie
@@ -11,9 +11,37 @@ GET http://localhost:8080/api/guests/00000000-0000-0000-0000-000000000000
 Accept: application/json
 
 ### deleting guest, here as well
-DELETE http://localhost:8080/api/guests/049a18aa-8d27-45fc-a572-4553844b2f2d
+DELETE http://localhost:8080/api/guests/298285a4-373d-41bc-92d7-847e2b2e506b
 Accept: application/json
 
 ### deleting guest but kapoot
-DELETE http://localhost:8080/api/guests/049a18aa-8d27-45fc-a572-4553844b2f2d
+DELETE http://localhost:8080/api/guests/00000000-0000-0000-0000-000000000000
 Accept: application/json
+
+### GET all guests
+GET http://localhost:8080/api/guests
+Accept: application/json
+
+### POST add guest OK
+POST http://localhost:8080/api/guests
+Content-Type: application/json
+
+{
+  "name": "Alice",
+  "dateOfBirth": "1995-10-10",
+  "nationality": "BELGIAN",
+  "hotelName": "Hotel Julien Antwerp",
+  "RoomNumbers": [201]
+}
+
+### POST add guest - BAD REQUEST
+POST http://localhost:8080/api/guests
+Content-Type: application/json
+
+{
+  "name": "A",
+  "dateOfBirth": "2025-10-10",
+  "nationality": "POLAND",
+  "hotelName": "Hilton",
+  "RoomNumbers": []
+}
