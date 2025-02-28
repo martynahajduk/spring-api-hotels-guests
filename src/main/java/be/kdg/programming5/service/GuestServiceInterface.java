@@ -18,4 +18,5 @@ public interface GuestServiceInterface {
 
     boolean deleteGuest(UUID guestId);
 
+    Guest updateGuest(UUID id, String name, LocalDate localDate, Nationality nationality);
 }

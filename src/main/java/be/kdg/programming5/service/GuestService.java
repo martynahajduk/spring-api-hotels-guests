@@ -3,6 +3,7 @@ package be.kdg.programming5.service;
 import be.kdg.programming5.domain.*;
 import be.kdg.programming5.repository.GuestRepository;
 import be.kdg.programming5.repository.HotelRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -86,6 +87,18 @@ public class GuestService implements GuestServiceInterface {
     public boolean deleteGuest(UUID guestId) {
         guestRepository.deleteById(guestId);
         return false;
+    }
+
+    @Override
+    @Transactional
+    public Guest updateGuest(UUID id, String name, LocalDate birthDate, Nationality nationality) {
+        Guest updatedGuest = guestRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Guest not found with id: " + id));
+        int updatedRows = guestRepository.updateGuest(id, name, birthDate, nationality);
+        if (updatedRows == 0) {
+            throw new EntityNotFoundException("Guest not found with id: " + id);
+        }
+        return updatedGuest;
     }
 
 

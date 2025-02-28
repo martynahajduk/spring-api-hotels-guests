@@ -177,13 +177,41 @@ GET http://localhost:8080/api/guests/00000000-0000-0000-0000-000000000000
 ### Deleting guest
 #### (UUID changes each time, so it doesn't work with this UUID anymore)
 DELETE http://localhost:8080/api/guests/1242cb96-305f-4ced-a8f6-4fb096c65da7
-<br>Accept: application/json
 
 **Response**: `HTTP/1.1 404 - Not Found`
 
 ### Deleting guest that doesn't exist
 DELETE http://localhost:8080/api/guests/00000000-0000-0000-0000-000000000000
-<br>Accept: application/json
 
 **Response**: `HTTP/1.1 404 - Not Found`
 
+### POST add guest OK
+POST http://localhost:8080/api/guests
+<br>Accept: application/json
+<br>Content-Type: application/json
+
+{
+"name": "Alice",
+"dateOfBirth": "1995-10-10",
+"nationality": "BELGIAN",
+"hotelName": "Hotel Julien Antwerp",
+"RoomNumbers": [201]
+}
+
+**Response**: `HTTP/1.1 201 - Created`
+
+
+### POST add guest - BAD REQUEST
+POST http://localhost:8080/api/guests
+<br>Accept: application/json
+<br>Content-Type: application/json
+
+{
+"name": "A",
+"dateOfBirth": "2025-10-10",
+"nationality": "POLAND",
+"hotelName": "Hilton",
+"RoomNumbers": []
+}
+
+**Response**: `HTTP/1.1 `

@@ -4,6 +4,7 @@ import be.kdg.programming5.domain.Guest;
 import be.kdg.programming5.domain.Nationality;
 import be.kdg.programming5.domain.RoomType;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -35,4 +36,15 @@ public interface GuestRepository extends JpaRepository<Guest, UUID> {
             "LEFT JOIN FETCH r.hotel rh")
     List<Guest> findAllWithBookings();
 
+    @Modifying
+    @Query("UPDATE Guest g SET " +
+            "g.name = COALESCE(:name, g.name), " +
+            "g.dateOfBirth = COALESCE(:birthDate, g.dateOfBirth), " +
+            "g.nationality = COALESCE(:nationality, g.nationality), " +
+            "g.hotel = COALESCE(:hotelName, g.hotel) " +
+            "WHERE g.guestId = :id")
+    int updateGuest(@Param("id") UUID id,
+                    @Param("name") String name,
+                    @Param("birthDate") LocalDate birthDate,
+                    @Param("nationality") Nationality nationality);
 }

@@ -1,4 +1,4 @@
-package be.kdg.programming5.webapi;
+package be.kdg.programming5.webapi.dto;
 
 import be.kdg.programming5.domain.Guest;
 import be.kdg.programming5.domain.Nationality;
