@@ -1,28 +1,31 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
-<script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}">
-</script>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title th:text="#{guest_list}"></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guests</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+    <script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
 </head>
 <body>
 <header th:insert="~{fragments/navbar.html}"></header>
-<div class="container px-5">
-    <h1 class="text-center" th:text="#{guest_list}"></h1><br>
 
-    <table class="table table-sm p-5">
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Guests List</h1>
+
+    <table class="table table-striped">
+        <thead>
         <tr>
-            <th th:text="#{guest_id}"></th>
-            <th th:text="#{guest_name}"></th>
-            <th th:text="#{birth_date}"></th>
-            <th th:text="#{nationality}"></th>
-            <th th:text="#{hotel_name}"></th>
-            <th th:text="#{room_number}"></th>
-            <th th:text="#{room_type}"></th>
-            <th th:text="#{delete}"></th>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Date of Birth</th>
+            <th scope="col">Nationality</th>
+            <th scope="col">Hotel</th>
+            <th scope="col">Room Number</th>
+            <th scope="col">Actions</th>
         </tr>
+        </thead>
+        <tbody id="guestList">
         <tr th:each="guest : ${guests}">
             <td th:text="${guest.getGuestId()}"></td>
             <td th:text="${guest.getName()}"></td>
@@ -30,16 +33,17 @@
             <td th:text="${guest.getNationality()}"></td>
             <td th:text="${guest.getHotel().getName()}"></td>
             <td th:text="${guest.roomListString()}"></td>
-            <td th:text="${guest.roomTypeListString()}"></td>
             <td>
                 <form th:action="@{/guests/delete/{id}(id=${guest.getGuestId()})}" method="post" style="display:inline;">
-                    <button th:text="#{delete}" type="submit" class="btn btn-danger"></button>
+                    <button th:text="#{delete}" type="submit" class="btn btn-danger">Delete</button>
                 </form>
             </td>
         </tr>
-    </table><br>
+        </tbody>
+    </table>
+</div>
 
-    <div class="container mt-4 p-5">
+<div class="container mt-4 p-5">
         <div class="row">
             <div class="col-md-6 mb-4" th:each="guest : ${guests}">
                 <a th:href="@{/guests/guest/{id}(id=${guest.guestId})}" style="text-decoration: none; color: inherit;">
@@ -66,23 +70,25 @@
             </div>
         </div>
     </div>
-
+<div class="container mt-5">
     <h3 class="text-center" th:text="#{filter_guests}"></h3><br>
-    <form action="/guests/filter" method="post">
-        <div class="row mb-3">
-            <label for="birthDate" class="col-sm-2 col-form-label" th:text="#{birth_date}"></label>
-            <div class="col-lg-10 col-md-2">
-            <input type="date" class="form-control col-sm-10" id="birthDate" name="birthDate">
-            </div>
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <form action="/guests/filter" method="post">
+                <div class="mb-3">
+                    <label for="birthDate" class="form-label" th:text="#{birth_date}"></label>
+                    <input type="date" class="form-control" id="birthDate" name="birthDate">
+                </div>
+                <div class="mb-3">
+                    <label for="nationality" class="form-label" th:text="#{nationality}"></label>
+                    <input type="text" class="form-control" id="nationality" name="nationality">
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-danger" th:text="#{filter_button}"></button>
+                </div>
+            </form>
         </div>
-        <div class="row mb-3">
-            <label for="nationality" class="col-sm-2 col-form-label" th:text="#{nationality}"></label>
-            <div class="col-lg-10 col-md-2">
-                <input type="text" class="form-control" id="nationality" name="nationality">
-            </div>
-        </div>
-        <button type="submit" class="btn btn-danger" th:text="#{filter_button}"></button>
-    </form><br>
+    </div>
 </div>
 <footer th:insert="~{fragments/footer.html}"></footer>
 </body>

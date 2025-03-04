@@ -30,7 +30,7 @@ Content-Type: application/json
   "dateOfBirth": "1995-10-10",
   "nationality": "BELGIAN",
   "hotelName": "Hotel Julien Antwerp",
-  "RoomNumbers": [201]
+  "roomNumbers": [201]
 }
 
 ### POST add guest - BAD REQUEST
@@ -43,5 +43,5 @@ Content-Type: application/json
   "dateOfBirth": "2025-10-10",
   "nationality": "POLAND",
   "hotelName": "Hilton",
-  "RoomNumbers": []
+  "roomNumbers": []
 }

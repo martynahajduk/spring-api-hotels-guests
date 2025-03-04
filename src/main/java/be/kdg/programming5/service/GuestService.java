@@ -28,17 +28,20 @@ public class GuestService implements GuestServiceInterface {
                           LocalDate birthDate,
                           Nationality nationality,
                           String hotelName,
-                          List<Integer> roomNumber) {
+                          List<Integer> roomNumbers) {
         Hotel hotel = hotelRepository.findByNameContainingIgnoreCase(hotelName)
                 .stream()
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Hotel not found"));
 
-        Room room = hotel.getRooms()
+        List<Room> rooms = hotel.getRooms()
                 .stream()
-                .filter(r -> roomNumber.contains(r.getRoomNumber()))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Room not found"));
+                .filter(room -> roomNumbers.contains(room.getRoomNumber()))
+                .toList();
+
+        if (rooms.isEmpty()) {
+            throw new IllegalArgumentException("No matching rooms found in the hotel");
+        }
 
         Guest guest = new Guest();
         guest.setName(name);
@@ -46,14 +49,17 @@ public class GuestService implements GuestServiceInterface {
         guest.setNationality(nationality);
         guest.setHotel(hotel);
 
-        GuestRoom guestRoom = new GuestRoom();
-        guestRoom.setGuest(guest);
-        guestRoom.setRoom(room);
-
-        guest.getGuestRooms().add(guestRoom);
+        rooms.forEach(room -> {
+            GuestRoom guestRoom = new GuestRoom();
+            guestRoom.setGuest(guest);
+            guestRoom.setRoom(room);
+            guest.getGuestRooms().add(guestRoom);
+        });
 
         return guestRepository.save(guest);
     }
+
+
 
     @Transactional
     @Override
@@ -91,15 +97,21 @@ public class GuestService implements GuestServiceInterface {
 
     @Override
     @Transactional
-    public Guest updateGuest(UUID id, String name, LocalDate birthDate, Nationality nationality) {
-        Guest updatedGuest = guestRepository.findById(id)
+    public Guest updateGuest(UUID id, String name, LocalDate dateOfBirth, Nationality nationality) {
+        Guest guest = guestRepository.findByIdWithBookings(id)
                 .orElseThrow(() -> new EntityNotFoundException("Guest not found with id: " + id));
-        int updatedRows = guestRepository.updateGuest(id, name, birthDate, nationality);
-        if (updatedRows == 0) {
-            throw new EntityNotFoundException("Guest not found with id: " + id);
+//        guest.getGuestRooms().size();
+        if (name != null && !name.isEmpty()) {
+            guest.setName(name);
         }
-        return updatedGuest;
-    }
+        if (dateOfBirth != null) {
+            guest.setDateOfBirth(dateOfBirth);
+        }
+        if (nationality != null) {
+            guest.setNationality(nationality);
+        }
 
+        return guestRepository.save(guest);
+    }
 
 }

@@ -36,15 +36,8 @@ public interface GuestRepository extends JpaRepository<Guest, UUID> {
             "LEFT JOIN FETCH r.hotel rh")
     List<Guest> findAllWithBookings();
 
-    @Modifying
-    @Query("UPDATE Guest g SET " +
-            "g.name = COALESCE(:name, g.name), " +
-            "g.dateOfBirth = COALESCE(:birthDate, g.dateOfBirth), " +
-            "g.nationality = COALESCE(:nationality, g.nationality), " +
-            "g.hotel = COALESCE(:hotelName, g.hotel) " +
-            "WHERE g.guestId = :id")
-    int updateGuest(@Param("id") UUID id,
-                    @Param("name") String name,
-                    @Param("birthDate") LocalDate birthDate,
-                    @Param("nationality") Nationality nationality);
+//    @Modifying
+//    @Query("UPDATE Guest g SET g.name = :name, g.dateOfBirth = :birthDate, g.nationality = :nationality WHERE g.guestId = :id")
+//    int updateGuest(@Param("id") UUID id, @Param("name") String name, @Param("birthDate") LocalDate birthDate, @Param("nationality") Nationality nationality);
+
 }

@@ -1,7 +1,10 @@
-# Programming 5 Project
+# Programming 5 Project 2024-2025
 ## Hotel Guest Management Application
 
-### Developer: Martyna Hajduk, ACS201 2024-2025
+### Developer: Martyna Hajduk 
+### E-mail: martyna.hajduk@student.kdg.be
+### Student ID:
+### Group: ACS201 
 
 ## Entities and Relationships
 ### Entities:
@@ -23,8 +26,27 @@
 - **Hotel ↔ Guests**: One-to-many (A hotel can have many guests, but each guest is associated with one hotel).
 
 ## Build and Run Instructions
+### 1. Clone the repository
+First, clone the repository to your local machine:
+```bash
+git clone https://gitlab.com/kdg-ti/programming-5/projects-24-25/acs201/martyna.hajduk/spring-backend.git
+```
+### 2. Install Docker
+Ensure Docker and Docker Compose are installed on your system.You can check if Docker is installed by running:
+```bash
+docker --version
+docker-compose --version
+```
+If the Docker is not installed, follow the [Docker installation guide](https://docs.docker.com/get-docker/).
+### 3. Set up PostgreSQL with Docker
+We are using Docker Compose to run a PostgreSQL database. To start the database, use the following command:
+```bash
+docker-compose up -d
+```
+This will start the PostgreSQL container with the configuration specified in docker-compose.yml.
+### 4. Build the project and run the application
 
-# Week 2
+# Week 2 - http requests
 ### Fetching all guests
 GET http://localhost:8080/api/guests
 <br>Accept: application/json
@@ -185,6 +207,7 @@ DELETE http://localhost:8080/api/guests/00000000-0000-0000-0000-000000000000
 
 **Response**: `HTTP/1.1 404 - Not Found`
 
+# Week 3 - http requests
 ### POST add guest OK
 POST http://localhost:8080/api/guests
 <br>Accept: application/json
@@ -214,4 +237,11 @@ POST http://localhost:8080/api/guests
 "RoomNumbers": []
 }
 
-**Response**: `HTTP/1.1 `
+**Response**: `HTTP/1.1 400 - Bad Request`
+
+{
+"timestamp": "2025-03-04T21:04:48.610+00:00",
+"status": 400,
+"error": "Bad Request",
+"path": "/api/guests"
+}

@@ -58,14 +58,20 @@ public class GuestApiController {
                 guestDto.dateOfBirth(),
                 guestDto.nationality(),
                 guestDto.hotelName(),
-                guestDto.RoomNumbers()
+                guestDto.roomNumbers()
         );
         return ResponseEntity.status(HttpStatus.CREATED).body(guestMapper.toGuestDto(newGuest));
     }
 
+
     @PatchMapping("/{id}")
-    public ResponseEntity<GuestDto> updateGuest(@PathVariable UUID id, @Valid @RequestBody GuestDto guestDto) {
-        Guest updatedGuest = guestService.updateGuest(id, guestDto.name(), guestDto.dateOfBirth(), guestDto.nationality()); //TODO update guest
+    public ResponseEntity<GuestDto> updateGuest(@PathVariable UUID id, @RequestBody GuestDto guestDto) {
+        Guest updatedGuest = guestService.updateGuest(
+                id,
+                guestDto.name(),
+                guestDto.dateOfBirth(),
+                guestDto.nationality()
+        );
         return ResponseEntity.ok(guestMapper.toGuestDto(updatedGuest));
     }
 }
