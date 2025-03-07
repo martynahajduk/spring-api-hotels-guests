@@ -74,10 +74,4 @@ public class HotelController {
         return "redirect:/hotels";
     }
 
-
-    @GetMapping("/index")
-    public String showMain(Model model) {
-        model.addAttribute("hotels", hotelService.getAllHotels());
-        return "index";
-    }
 }

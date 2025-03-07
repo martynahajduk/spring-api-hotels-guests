@@ -69,3 +69,7 @@ INSERT INTO guest_rooms (guest_id, hotel_id, room_number) VALUES
                                                               ((SELECT guest_id FROM guests WHERE name = 'Alina Dimova'), (SELECT hotel_id FROM hotels WHERE name = 'Pillows Grand Hotel Reylof'), 401),
                                                               ((SELECT guest_id FROM guests WHERE name = 'Alina Dimova'), (SELECT hotel_id FROM hotels WHERE name = 'Pillows Grand Hotel Reylof'), 501),
                                                               ((SELECT guest_id FROM guests WHERE name = 'Carys Coetzee'), (SELECT hotel_id FROM hotels WHERE name = 'Pillows Grand Hotel Reylof'), 501);
+
+INSERT INTO app_users (username, password, role) VALUES
+                                                     ('admin_test', '$2b$12$M6UjizyvBZ96VvCy9uT7BuOan5JJSUfhRKqMLDZ/OL7KHCO0cGlvK', 'ADMIN'),
+                                                     ('user_test', '$2b$12$mGhp1sgSp8TDKMr0BzzOFeT/AMPcjnuoMmWKx/wOBfr.HMaQNAbei', 'USER');

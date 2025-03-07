@@ -44,7 +44,7 @@
     </div>
     <br>
     <h2 class="text-center" th:text="#{main_text}"></h2>
-    <div class="row row-cols-1 row-cols-md-2 g-4 px-5 py-4 justify-content-center"> <!-- Zwiększono marginesy -->
+    <div class="row row-cols-1 row-cols-md-2 g-4 px-5 py-4 justify-content-center">
         <div class="col">
             <div class="card">
                 <div class="d-flex justify-content-center">
@@ -61,11 +61,10 @@
         <div class="col">
             <div class="card">
                 <div class="d-flex justify-content-center">
-                    <i class="bi bi-building-add" style="font-size: 150px;"></i>                </div>
+                    <i class="bi bi-building-add" style="font-size: 150px;"></i>
+                </div>
                 <div class="card-body">
-                    <h5 class="card-title">
-                        <a class="link-danger" th:href="@{/hotels/addhotel}" th:text="#{add_hotel}"></a>
-                    </h5>
+                    <h5 class="card-title" th:text="#{add_hotel}"></h5>
                     <p class="card-text" th:text="#{addhotel_overview}"></p>
                 </div>
             </div>
@@ -76,10 +75,10 @@
                     <i class="bi bi-person" style="font-size: 150px;"></i>
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">
-                        <a class="link-danger" th:href="@{/guests}" th:text="#{guest_list}"></a>
-                    </h5>
-                    <p class="card-text" th:text="#{guests_overview}"></p>
+                    <div class="card-body">
+                        <h5 class="card-title" th:href="@{/guests}" th:text="#{guest_list}"></h5>
+                        <p class="card-text" th:text="#{addhotel_overview}"></p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -89,13 +88,16 @@
                     <i class="bi bi-person-plus" style="font-size: 150px;"></i>
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">
-                        <a class="link-danger" th:href="@{/guests/addguest}" th:text="#{add_guest}"></a>
-                    </h5>
+                    <h5 class="card-title" th:text="#{add_guest}"></h5>
                     <p class="card-text" th:text="#{addguest_overview}"></p>
                 </div>
             </div>
+        </div><br>
+        <div class="container text-center py-5">
+            <h1 th:text="#{login}"></h1>
+            <a href="/login" class="btn btn-danger w-100 mt-3">Go to login page</a>
         </div>
+
     </div>
 </div>
 <footer th:insert="~{fragments/footer.html}"></footer>

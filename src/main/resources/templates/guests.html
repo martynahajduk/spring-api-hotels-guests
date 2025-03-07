@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,31 +11,30 @@
 <header th:insert="~{fragments/navbar.html}"></header>
 
 <div class="container mt-5">
-    <h1 class="text-center mb-4">Guests List</h1>
-
+    <h1 class="text-center mb-4" th:text="#{guest_list}"></h1>
     <table class="table table-striped">
         <thead>
         <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Date of Birth</th>
-            <th scope="col">Nationality</th>
-            <th scope="col">Hotel</th>
-            <th scope="col">Room Number</th>
-            <th scope="col">Actions</th>
+            <th scope="col" th:text="#{guest_id}" th:if="${#authorization.expression('hasRole(''ADMIN'')')}"></th>
+            <th scope="col" th:text="#{guest_name}"></th>
+            <th scope="col" th:text="#{nationality}"></th>
+            <th scope="col" th:text="#{birth_date}"></th>
+            <th scope="col" th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:text="#{hotel_name}"></th>
+            <th scope="col" th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:text="#{room_number}"></th>
+            <th scope="col" th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:text="#{delete}"></th>
         </tr>
         </thead>
         <tbody id="guestList">
         <tr th:each="guest : ${guests}">
-            <td th:text="${guest.getGuestId()}"></td>
+            <td th:text="${guest.getGuestId()}" th:if="${#authorization.expression('hasRole(''ADMIN'')')}"></td>
             <td th:text="${guest.getName()}"></td>
-            <td th:text="${guest.getDateOfBirth()}"></td>
             <td th:text="${guest.getNationality()}"></td>
-            <td th:text="${guest.getHotel().getName()}"></td>
-            <td th:text="${guest.roomListString()}"></td>
-            <td>
+            <td th:text="${guest.getDateOfBirth()}"></td>
+            <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:text="${guest.getHotel().getName()}"></td>
+            <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:text="${guest.roomListString()}"></td>
+            <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
                 <form th:action="@{/guests/delete/{id}(id=${guest.getGuestId()})}" method="post" style="display:inline;">
-                    <button th:text="#{delete}" type="submit" class="btn btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-danger" th:text="#{delete}"></button>
                 </form>
             </td>
         </tr>
@@ -44,32 +43,38 @@
 </div>
 
 <div class="container mt-4 p-5">
-        <div class="row">
-            <div class="col-md-6 mb-4" th:each="guest : ${guests}">
-                <a th:href="@{/guests/guest/{id}(id=${guest.guestId})}" style="text-decoration: none; color: inherit;">
-                    <div class="card mb-3" style="max-width: 540px;">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img th:src="@{'/images/' + ${guest.name.toLowerCase().replace(' ', '-')} + '.jpg'}"
-                                     class="img-fluid rounded-start"
-                                     th:alt="${guest.name}" />
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title" th:text="${guest.name}"></h5>
-                                    <p class="card-text" th:text="#{birth_date}+': '+ ${guest.dateOfBirth}"></p>
-                                    <p class="card-text" th:text="#{nationality}+': '+${guest.nationality}"></p>
-                                    <p class="card-text" th:text="#{hotel_name}+': '+${guest.hotel.name}"></p>
-                                    <p class="card-text" th:text="#{room_number}+': '+${guest.roomListString()}"></p>
-                                    <p class="card-text" th:text="#{room_type}+': '+${guest.roomTypeListString()}"></p>
-                                </div>
+    <div class="row">
+        <div class="col-md-6 mb-4" th:each="guest : ${guests}">
+            <a th:href="@{/guests/guest/{id}(id=${guest.guestId})}" style="text-decoration: none; color: inherit;">
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img th:src="@{'/images/' + ${guest.name.toLowerCase().replace(' ', '-')} + '.jpg'}"
+                                 class="img-fluid rounded-start"
+                                 th:alt="${guest.name}" />
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${guest.name}"></h5>
+                                <p class="card-text" th:text="#{nationality} + ': ' + ${guest.nationality}"></p>
+
+                                <p class="card-text" th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
+                                   th:text="#{birth_date} + ': ' + ${guest.dateOfBirth}"></p>
+                                <p class="card-text" th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
+                                   th:text="#{hotel_name} + ': ' + ${guest.hotel.name}"></p>
+                                <p class="card-text" th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
+                                   th:text="#{room_number} + ': ' + ${guest.roomListString()}"></p>
+                                <p class="card-text" th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
+                                   th:text="#{room_type} + ': ' + ${guest.roomTypeListString()}"></p>
                             </div>
                         </div>
                     </div>
-                </a>
-            </div>
+                </div>
+            </a>
         </div>
     </div>
+</div>
+
 <div class="container mt-5">
     <h3 class="text-center" th:text="#{filter_guests}"></h3><br>
     <div class="row justify-content-center">
@@ -90,6 +95,7 @@
         </div>
     </div>
 </div>
+
 <footer th:insert="~{fragments/footer.html}"></footer>
 </body>
 </html>

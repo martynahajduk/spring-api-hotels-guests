@@ -59,7 +59,7 @@ GET http://localhost:8080/api/guests
 "dateOfBirth": "1993-04-11",
 "nationality": "AUSTRALIAN",
 "hotelName": "Steigenberger Wiltcher's",
-"RoomNumbers": [
+"roomNumbers": [
 101
 ]
 },
@@ -68,7 +68,7 @@ GET http://localhost:8080/api/guests
 "dateOfBirth": "1988-08-24",
 "nationality": "BELGIAN",
 "hotelName": "Steigenberger Wiltcher's",
-"RoomNumbers": [
+"roomNumbers": [
 201
 ]
 },
@@ -77,7 +77,7 @@ GET http://localhost:8080/api/guests
 "dateOfBirth": "1985-02-03",
 "nationality": "BRAZILIAN",
 "hotelName": "Hotel De Witte Lelie",
-"RoomNumbers": [
+"roomNumbers": [
 401,
 501
 ]
@@ -87,7 +87,7 @@ GET http://localhost:8080/api/guests
 "dateOfBirth": "1991-11-10",
 "nationality": "CROATIAN",
 "hotelName": "Hotel De Witte Lelie",
-"RoomNumbers": [
+"roomNumbers": [
 501
 ]
 },
@@ -96,7 +96,7 @@ GET http://localhost:8080/api/guests
 "dateOfBirth": "1987-07-19",
 "nationality": "SPANISH",
 "hotelName": "Hotel 't Sandt Antwerpen",
-"RoomNumbers": [
+"roomNumbers": [
 101
 ]
 },
@@ -105,7 +105,7 @@ GET http://localhost:8080/api/guests
 "dateOfBirth": "1994-12-25",
 "nationality": "AMERICAN",
 "hotelName": "Hotel 't Sandt Antwerpen",
-"RoomNumbers": [
+"roomNumbers": [
 201
 ]
 },
@@ -114,7 +114,7 @@ GET http://localhost:8080/api/guests
 "dateOfBirth": "1990-03-30",
 "nationality": "HUNGARIAN",
 "hotelName": "Hotel Julien Antwerp",
-"RoomNumbers": [
+"roomNumbers": [
 301,
 401
 ]
@@ -124,7 +124,7 @@ GET http://localhost:8080/api/guests
 "dateOfBirth": "1989-06-14",
 "nationality": "GREEK",
 "hotelName": "Hotel Julien Antwerp",
-"RoomNumbers": [
+"roomNumbers": [
 401
 ]
 },
@@ -133,7 +133,7 @@ GET http://localhost:8080/api/guests
 "dateOfBirth": "1995-01-18",
 "nationality": "ROMANIAN",
 "hotelName": "Pillows Grand Hotel Reylof",
-"RoomNumbers": [
+"roomNumbers": [
 301
 ]
 },
@@ -142,7 +142,7 @@ GET http://localhost:8080/api/guests
 "dateOfBirth": "1983-09-05",
 "nationality": "ROMANIAN",
 "hotelName": "Pillows Grand Hotel Reylof",
-"RoomNumbers": [
+"roomNumbers": [
 401
 ]
 },
@@ -151,7 +151,7 @@ GET http://localhost:8080/api/guests
 "dateOfBirth": "2004-11-05",
 "nationality": "MOLDOVAN",
 "hotelName": "Pillows Grand Hotel Reylof",
-"RoomNumbers": [
+"roomNumbers": [
 301,
 401,
 501
@@ -162,7 +162,7 @@ GET http://localhost:8080/api/guests
 "dateOfBirth": "2004-06-08",
 "nationality": "SOUTH_AFRICAN",
 "hotelName": "Pillows Grand Hotel Reylof",
-"RoomNumbers": [
+"roomNumbers": [
 501
 ]
 }
@@ -181,7 +181,7 @@ GET http://localhost:8080/api/guests/7c0d0d1a-9fe8-4c45-8c8a-d0ffbcd1ae79
 "dateOfBirth": "1993-04-11",
 "nationality": "AUSTRALIAN",
 "hotelName": "Steigenberger Wiltcher's",
-"RoomNumbers": [
+"roomNumbers": [
 101
 ]
 }
@@ -245,3 +245,30 @@ POST http://localhost:8080/api/guests
 "error": "Bad Request",
 "path": "/api/guests"
 }
+
+# Week 4
+## Users
+#### ADMIN
+username: admin_test
+<br>password: admin123
+
+#### USER
+username: user_test
+<br>password: guest123
+
+## Access Control
+### Publicly Accessible Pages
+- [Landing Page](http://localhost:8080/)
+- [Login Page](http://localhost:8080/login)
+- [Hotels List](http://localhost:8080/hotels)
+
+### Pages that Require Authentication (ANY)
+- [Guests List](http://localhost:8080/guests)
+- [Guest Details](http://localhost:8080/guests/guest/{id})
+- [Hotel Details](http://localhost:8080/hotels/hotel/{id})
+
+### Pages that Require Authentication (ADMIN)
+- [Add Hotel](http://localhost:8080/hotels/addhotel)
+- [Add Guest](http://localhost:8080/guests/addguest)
+
+

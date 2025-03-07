@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Main Menu</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</head>
+<body>
+<header th:insert="~{fragments/navbar.html}"></header>
+<div class="container py-5">
+    <h1 class="text-center" th:text="#{welcome}"></h1><br>
+    <div class="row row-cols-1 row-cols-md-2 g-4 px-5 py-4 justify-content-center">
+
+        <div class="col">
+            <div class="card">
+                <div class="d-flex justify-content-center">
+                    <i class="bi bi-building" style="font-size: 150px;"></i>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a class="link-danger" th:href="@{/hotels}" th:text="#{hotel_list}"></a>
+                    </h5>
+                    <p class="card-text" th:text="#{hotel_overview}"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col" sec:authorize="hasRole('ROLE_ADMIN')">
+            <div class="card">
+                <div class="d-flex justify-content-center">
+                    <i class="bi bi-building-add" style="font-size: 150px;"></i>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a class="link-danger" th:href="@{/hotels/addhotel}" th:text="#{add_hotel}"></a>
+                    </h5>
+                    <p class="card-text" th:text="#{addhotel_overview}"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card">
+                <div class="d-flex justify-content-center">
+                    <i class="bi bi-person" style="font-size: 150px;"></i>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a class="link-danger" th:href="@{/guests}" th:text="#{guest_list}"></a>
+                    </h5>
+                    <p class="card-text" th:text="#{guests_overview}"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col" sec:authorize="hasRole('ROLE_ADMIN')">
+            <div class="card">
+                <div class="d-flex justify-content-center">
+                    <i class="bi bi-person-plus" style="font-size: 150px;"></i>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a class="link-danger" th:href="@{/guests/addguest}" th:text="#{add_guest}"></a>
+                    </h5>
+                    <p class="card-text" th:text="#{addguest_overview}"></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<footer th:insert="~{fragments/footer.html}"></footer>
+</body>
+</html>

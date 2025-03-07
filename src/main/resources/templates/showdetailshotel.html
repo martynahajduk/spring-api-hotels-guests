@@ -1,25 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
-<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
-<script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}">
-</script>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title th:text="#{details_about} + ' ' + ${hotel.name}"></title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
 </head>
 <body>
 <header th:insert="~{fragments/navbar.html}"></header>
+
 <div class="container mt-5 text-center pb-2">
-    <figure class="figure figure mx-auto">
+    <figure class="figure mx-auto">
         <h2 th:text="#{details_about} + ' ' + ${hotel.name}"></h2>
-        <img th:src="@{'/images/' + ${hotel.name.toLowerCase().replace(' ', '-')} + '.jpg'}" alt="Hotel" class="img-fluid mb-3" width="200" height="400"/>
+        <img th:src="@{'/images/' + ${hotel.name.toLowerCase().replace(' ', '-')} + '.jpg'}"
+             alt="Hotel" class="img-fluid mb-3" width="200" height="400"/>
         <figcaption class="figure-caption">
             <p><strong th:text="#{hotel_name}"></strong>: <span th:text="${hotel.name}"></span></p>
             <p><strong th:text="#{location}"></strong>: <span th:text="${hotel.location}"></span></p>
         </figcaption>
     </figure>
-    <h3 th:text="#{guests_list}"></h3>
-    <table class="table">
+
+    <h3 th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:text="#{guests_list}"></h3>
+    <table class="table" th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
         <thead>
         <tr>
             <th th:text="#{guest_name}"></th>
@@ -39,7 +41,12 @@
         </tr>
         </tbody>
     </table>
-    <p><a th:href="@{/hotels}" class="btn btn-danger" th:text="#{back_to_hotels_button}"></a></p></div>
+
+    <p>
+        <a th:href="@{/hotels}" class="btn btn-danger" th:text="#{back_to_hotels_button}"></a>
+    </p>
+</div>
+
 <footer th:insert="~{fragments/footer.html}"></footer>
 </body>
 </html>
