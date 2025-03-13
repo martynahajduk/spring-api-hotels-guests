@@ -2,6 +2,8 @@ package be.kdg.programming5.domain;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "guest_rooms", uniqueConstraints = {@UniqueConstraint(columnNames = {"room_number", "hotel_id", "guest_id"})})
 public class GuestRoom {
@@ -20,6 +22,18 @@ public class GuestRoom {
             @JoinColumn(name = "hotel_id", referencedColumnName = "hotel_id")
     })
     private Room room;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id")
+    private User owner;
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
 
     public Integer getId() {
         return id;

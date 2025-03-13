@@ -2,6 +2,8 @@ package be.kdg.programming5.domain;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "app_users")
 public class User {
@@ -19,6 +21,16 @@ public class User {
     @Column(nullable = false)
     private Role role;
 
+    @OneToMany(mappedBy = "owner")
+    private List<GuestRoom> guestRooms;
+
+    public List<GuestRoom> getGuestRooms() {
+        return guestRooms;
+    }
+
+    public void setGuestRooms(List<GuestRoom> guestRooms) {
+        this.guestRooms = guestRooms;
+    }
 
     public Integer getId() {
         return id;
