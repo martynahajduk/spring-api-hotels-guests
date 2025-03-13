@@ -14,7 +14,7 @@
 
     <table class="table table-sm p-5">
         <tr>
-            <th scope="col" th:text="#{hotel_id}" th:if="${#authorization.expression('isAuthenticated()')}"></th>
+            <th scope="col" th:text="#{hotel_id}" th:if="${#authorization.expression('hasRole(''ADMIN'')')}"></th>
             <th scope="col" th:text="#{hotel_name}"></th>
             <th scope="col" th:text="#{location}" th:if="${#authorization.expression('isAuthenticated()')}"></th>
             <th scope="col" th:text="#{delete}" th:if="${#authorization.expression('hasRole(''ADMIN'')')}"></th>

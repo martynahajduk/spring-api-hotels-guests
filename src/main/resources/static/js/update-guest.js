@@ -4,9 +4,12 @@ document.querySelector("#updateGuestForm").addEventListener("submit", async func
     const urlParts = window.location.pathname.split("/");
     const guestId = urlParts[urlParts.length - 1];
 
+    const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute("content");
+    const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute("content");
+
     const updatedData = {
         name: document.querySelector("#name").value.trim(),
-        nationality: document.querySelector("#nationality").value.trim().ignoreCase(), // TO FIX
+        nationality: document.querySelector("#nationality").value.trim().toUpperCase(), // jeśli chcesz wielkimi
         dateOfBirth: document.querySelector("#birthDate").value
     };
 
@@ -14,7 +17,8 @@ document.querySelector("#updateGuestForm").addEventListener("submit", async func
         const response = await fetch(`/api/guests/${guestId}`, {
             method: "PATCH",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                [csrfHeader]: csrfToken
             },
             body: JSON.stringify(updatedData)
         });

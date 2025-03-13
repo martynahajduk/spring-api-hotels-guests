@@ -246,8 +246,8 @@ POST http://localhost:8080/api/guests
 "path": "/api/guests"
 }
 
-# Week 4
-## Users
+# Week 4 & 5
+## ROLES
 #### ADMIN
 username: admin_test
 <br>password: admin123
@@ -262,13 +262,47 @@ username: user_test
 - [Login Page](http://localhost:8080/login)
 - [Hotels List](http://localhost:8080/hotels)
 
-### Pages that Require Authentication (ANY)
+### Pages that Require Basic Authentication (USER)
+- [Main Menu](http://localhost:8080/mainmenu)
 - [Guests List](http://localhost:8080/guests)
 - [Guest Details](http://localhost:8080/guests/guest/{id})
 - [Hotel Details](http://localhost:8080/hotels/hotel/{id})
 
-### Pages that Require Authentication (ADMIN)
+### Pages that Require Admin Authentication (ADMIN)
 - [Add Hotel](http://localhost:8080/hotels/addhotel)
 - [Add Guest](http://localhost:8080/guests/addguest)
 
+## Permissions
+### Unauthenticated Users
+Allowed:
 
+- See [Landing Page](http://localhost:8080/), [Login Page](http://localhost:8080/login) and [Hotels List](http://localhost:8080/hotels) but without hotel ID and location.
+
+Not Allowed:
+- See [Main Menu](http://localhost:8080/mainmenu), [Guests List](http://localhost:8080/guests), [Guest Details](http://localhost:8080/guests/guest/{id}) and [Hotel Details](http://localhost:8080/hotels/hotel/{id}).
+- See [Add Hotel](http://localhost:8080/hotels/addhotel) and [Add Guest](http://localhost:8080/guests/addguest).
+- Add or modify any data.
+
+### USER authentication
+Allowed:
+- All pages listed under unauthenticated users
+- [Main Menu](http://localhost:8080/mainmenu) — *with links to Guests and Hotels*
+- [Guests List](http://localhost:8080/guests) — *limited view (no guest ID, no hotel or room info)*
+- [Guest Details](http://localhost:8080/guests/guest/{id}) — *limited view (no hotel/room info, no edit options)*
+- [Hotel Details](http://localhost:8080/hotels/hotel/{id}) — *limited view (no hotel ID, no guest list)*
+- Modify or delete GuestRoom entries **only if they are the owner**, for now User has permissions for guests **Alina Dimova** and **Carys Coetzee**.
+
+Not Allowed:
+- Add new hotels ([Add Hotel](http://localhost:8080/hotels/addhotel)) or guests ([Add Guest](http://localhost:8080/guests/addguest)).
+- Modify data of other guests.
+- Access guest or hotel internal IDs.
+- See full guest ([Guest Details](http://localhost:8080/guests/guest/{id})) or hotel ([Hotel Details](http://localhost:8080/hotels/hotel/{id})) details.
+
+### ADMIN authentication
+Allowed:
+- All user-level permissions
+- Full view and control over [Guest List](http://localhost:8080/guests), [Guest Details](http://localhost:8080/guests/guest/{id}) and [Hotel Details](http://localhost:8080/hotels/hotel/{id}).
+- Add new hotels ([Add Hotel](http://localhost:8080/hotels/addhotel)).
+- Add new guests ([Add Guest](http://localhost:8080/guests/addguest)).
+- Edit/delete **any** GuestRoom entry.
+- See all entity IDs, guests in hotels, and room assignments.

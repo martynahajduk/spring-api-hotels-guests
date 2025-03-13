@@ -16,10 +16,10 @@
     <img id="guestImage" th:src="@{'/images/' + ${guest.getName().toLowerCase().replace(' ', '-')} + '.jpg'}"
          alt="Guest" class="img-fluid mb-3" width="200" height="400" />
     <figcaption class="figure-caption">
-      <p><strong th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:text="#{birth_date}"></strong>: <span th:text="${guest.getDateOfBirth()}"></span></p>
+      <p th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><strong th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:text="#{birth_date}"></strong>: <span th:text="${guest.getDateOfBirth()}"></span></p>
       <p><strong th:text="#{nationality}"></strong>: <span th:text="${guest.getNationality()}"></span></p>
-      <p><strong th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:text="#{hotel_name}"></strong>: <span th:text="${guest.getHotel().getName()}"></span></p>
-      <p><strong th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:text="#{room_number}"></strong>: <span th:text="${guest.roomListString()}"></span></p>
+      <p th:if="${#authorization.expression('hasRole(''ADMIN'')')}" ><strong th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:text="#{hotel_name}"></strong>: <span th:text="${guest.getHotel().getName()}"></span></p>
+      <p th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><strong th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:text="#{room_number}"></strong>: <span th:text="${guest.roomListString()}"></span></p>
     </figcaption>
   </figure>
 <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">

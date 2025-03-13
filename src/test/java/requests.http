@@ -45,3 +45,48 @@ Content-Type: application/json
   "hotelName": "Hilton",
   "roomNumbers": []
 }
+
+###
+GET http://localhost:8080/api/guest-rooms
+Authorization: Basic user_test guest123
+Accept: application/json
+Content-Type: application/json
+
+
+###
+
+PATCH http://localhost:8080/api/guest-rooms/73779a3a-999f-4e2a-a22e-5c90c5a072c5
+Authorization: Basic dXNlcl90ZXN0Omd1ZXN0MTIz
+Content-Type: application/json
+X-CSRF-TOKEN: OyAz_KynOwG1RfOA5oP5pIJut8pjyQwyqrkYdhBZGrmBYcE6CENRnZyUWTSYJMDi0K7NkbUKmqsArDsfm48tECk9K9q4BKUM
+
+{
+  "roomNumber": 102
+}
+
+
+###
+GET http://localhost:8080/login
+Accept: text/html
+
+###
+POST http://localhost:8080/login
+Content-Type: application/x-www-form-urlencoded
+Accept: text/html
+X-Csrf-Token: ryqD858tZILXA59W_PYQ7qAWGNG22SRqDNUIUtOIDnhf994pnRuwx61OVbT6Mvluytsk25gnNbPS7RBHNe1uN7C7PU8-xeob
+
+username=user_test&password=guest123
+
+
+###
+PATCH http://localhost:8080/api/guest-rooms/13
+Accept: application/json
+Content-Type: application/json
+X-Csrf-Token: ryqD858tZILXA59W_PYQ7qAWGNG22SRqDNUIUtOIDnhf994pnRuwx61OVbT6Mvluytsk25gnNbPS7RBHNe1uN7C7PU8-xeob
+Cookie: JSESSIONID=79BA336322399F0CEA0E55808704440C
+
+{
+  "guestId": "1adaad2b-955f-40f3-9b50-55467619348e",
+  "hotelId": "13b70418-dd09-408b-9e83-8da187f1e734",
+  "roomNumber": 101
+}

@@ -73,3 +73,10 @@ INSERT INTO guest_rooms (guest_id, hotel_id, room_number) VALUES
 INSERT INTO app_users (username, password, role) VALUES
                                                      ('admin_test', '$2b$12$M6UjizyvBZ96VvCy9uT7BuOan5JJSUfhRKqMLDZ/OL7KHCO0cGlvK', 'ADMIN'),
                                                      ('user_test', '$2b$12$mGhp1sgSp8TDKMr0BzzOFeT/AMPcjnuoMmWKx/wOBfr.HMaQNAbei', 'USER');
+
+UPDATE guest_rooms
+SET owner_id = (SELECT id FROM app_users WHERE username = 'user_test')
+WHERE guest_id IN (
+    SELECT guest_id FROM guests WHERE name IN ('Alina Dimova', 'Carys Coetzee')
+);
+
