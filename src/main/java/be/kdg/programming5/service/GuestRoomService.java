@@ -6,6 +6,7 @@ import be.kdg.programming5.domain.Room;
 import be.kdg.programming5.domain.User;
 import be.kdg.programming5.repository.GuestRepository;
 import be.kdg.programming5.repository.GuestRoomRepository;
+import be.kdg.programming5.repository.RoomRepository;
 import be.kdg.programming5.webapi.dto.GuestRoomDto;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -17,10 +18,12 @@ import java.util.List;
 public class GuestRoomService implements GuestRoomServiceInterface {
     private final GuestRoomRepository guestRoomRepository;
     private final GuestRepository guestRepository;
+    private final RoomRepository roomRepository;
 
-    public GuestRoomService(GuestRoomRepository guestRoomRepository, GuestRepository guestRepository) {
+    public GuestRoomService(GuestRoomRepository guestRoomRepository, GuestRepository guestRepository, RoomRepository roomRepository) {
         this.guestRoomRepository = guestRoomRepository;
         this.guestRepository = guestRepository;
+        this.roomRepository = roomRepository;
     }
 
     @Transactional
@@ -35,10 +38,9 @@ public class GuestRoomService implements GuestRoomServiceInterface {
         Guest guest = guestRepository.findById(dto.guestId())
                 .orElseThrow(() -> new IllegalArgumentException("Guest not found"));
 
-        Room room = guest.getHotel().getRooms().stream()
-                .filter(r -> r.getRoomNumber() == dto.roomNumber())
-                .findFirst()
+        Room room = roomRepository.findByHotel_HotelIdAndRoomNumber(dto.hotelId(), dto.roomNumber())
                 .orElseThrow(() -> new IllegalArgumentException("Room not found in guest's hotel"));
+
 
         GuestRoom guestRoom = new GuestRoom();
         guestRoom.setGuest(guest);
@@ -57,10 +59,9 @@ public class GuestRoomService implements GuestRoomServiceInterface {
         Guest guest = guestRepository.findById(dto.guestId())
                 .orElseThrow(() -> new IllegalArgumentException("Guest not found"));
 
-        Room room = guest.getHotel().getRooms().stream()
-                .filter(r -> r.getRoomNumber() == dto.roomNumber())
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Room not found"));
+        Room room = roomRepository.findByHotel_HotelIdAndRoomNumber(dto.hotelId(), dto.roomNumber())
+                .orElseThrow(() -> new IllegalArgumentException("Room not found in guest's hotel"));
+
 
         guestRoom.setGuest(guest);
         guestRoom.setRoom(room);

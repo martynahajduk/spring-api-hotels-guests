@@ -14,7 +14,7 @@ public class Hotel {
     @Column(name = "hotel_id")
     private UUID hotelId;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable=false)
     private String name;
 
     @Column(name = "location")

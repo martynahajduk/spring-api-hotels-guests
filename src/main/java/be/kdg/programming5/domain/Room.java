@@ -70,4 +70,11 @@ public class Room {
         this.guestRooms = booking;
     }
 
+    public void setFloor(int floor) {
+        this.floor = floor;
+    }
+
+    public void setRoomType(RoomType roomType) {
+        this.roomType = roomType;
+    }
 }

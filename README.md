@@ -306,3 +306,9 @@ Allowed:
 - Add new guests ([Add Guest](http://localhost:8080/guests/addguest)).
 - Edit/delete **any** GuestRoom entry.
 - See all entity IDs, guests in hotels, and room assignments.
+
+### Week 6 - Testing
+## Spring Test Profile
+- Profile: `test`
+- File: `application-test.properties`
+- Usage: `./gradlew test -Dspring.profiles.active=test`
