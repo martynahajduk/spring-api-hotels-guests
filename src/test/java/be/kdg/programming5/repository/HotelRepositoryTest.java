@@ -1,6 +1,8 @@
 package be.kdg.programming5.repository;
 
+import be.kdg.programming5.TestHelper;
 import be.kdg.programming5.domain.Hotel;
+import org.hibernate.LazyInitializationException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -22,6 +24,9 @@ public class HotelRepositoryTest {
 
     @Autowired
     private HotelRepository hotelRepository;
+    @Autowired
+    private TestHelper testHelper;
+
 
     private UUID hotelId;
 
@@ -33,8 +38,8 @@ public class HotelRepositoryTest {
         hotelId = hotelRepository.save(hotel).getHotelId();
     }
 
-    @Test
-    void testHotelNameMustNotBeNull() {
+    @Test //failure save
+    void testHotelNameMustNotBeNull() { //
         Hotel hotel = new Hotel();
         hotel.setLocation("No name hotel");
         assertThrows(DataIntegrityViolationException.class, () -> {
@@ -42,12 +47,22 @@ public class HotelRepositoryTest {
         });
     }
 
-    @Test
+    @Test //success
     void testDeleteHotel() {
         hotelRepository.deleteById(hotelId);
         Optional<Hotel> deletedHotel = hotelRepository.findById(hotelId);
         assertFalse(deletedHotel.isPresent(), "Hotel should be deleted");
     }
+
+    @Test
+    void testLazyLoadingGuestRoomsFailsOutsideTransaction() {
+        Hotel hotel = testHelper.createHotel("LazyLoadHotel", "Nowhere");
+
+        Hotel fetched = hotelRepository.findById(hotel.getHotelId()).orElseThrow();
+
+        assertThrows(LazyInitializationException.class, () -> fetched.getRooms().size());
+    }
+
 }
 
 

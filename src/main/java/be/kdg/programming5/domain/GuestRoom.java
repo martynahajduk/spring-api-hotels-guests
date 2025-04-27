@@ -58,4 +58,6 @@ public class GuestRoom {
     public void setRoom(Room room) {
         this.room = room;
     }
+
+
 }

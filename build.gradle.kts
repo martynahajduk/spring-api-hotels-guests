@@ -25,12 +25,14 @@ dependencies {
     implementation ("org.thymeleaf.extras:thymeleaf-extras-springsecurity6")
     implementation("org.webjars:bootstrap:5.3.3")
     runtimeOnly ("org.postgresql:postgresql:42.7.5")
-    testImplementation ("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly ("org.junit.platform:junit-platform-launcher")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.webjars:webjars-locator-core:0.48")
     implementation("org.mapstruct:mapstruct:1.6.3")
     annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
+    testImplementation ("org.springframework.boot:spring-boot-starter-test")
+    testImplementation ("org.springframework.security:spring-security-test")
+    testImplementation ("com.fasterxml.jackson.core:jackson-databind")
 }
 
 tasks.withType<Test> {

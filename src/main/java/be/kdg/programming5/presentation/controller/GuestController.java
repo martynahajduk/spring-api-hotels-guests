@@ -6,6 +6,7 @@ import be.kdg.programming5.service.GuestServiceInterface;
 import be.kdg.programming5.service.HotelServiceInterface;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -61,6 +62,7 @@ public class GuestController {
         model.addAttribute("guestViewModel", new GuestViewModel());
         return "addguest";
     }
+
 
     @PostMapping("/addguest")
     public String addGuest(@Valid @ModelAttribute("guestViewModel") GuestViewModel guestViewModel,

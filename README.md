@@ -4,7 +4,7 @@
 ### Developer: Martyna Hajduk 
 ### E-mail: martyna.hajduk@student.kdg.be
 ### Student ID:
-### Group: ACS201 
+### Group: ACS201
 
 ## Entities and Relationships
 ### Entities:
@@ -307,8 +307,20 @@ Allowed:
 - Edit/delete **any** GuestRoom entry.
 - See all entity IDs, guests in hotels, and room assignments.
 
-### Week 6 - Testing
-## Spring Test Profile
+# Testing
+## Week 6 & 8
+### Spring Test Profile
 - Profile: `test`
 - File: `application-test.properties`
 - Usage: `./gradlew test -Dspring.profiles.active=test`
+
+### Test Classes
+- API tests: `GuestRoomApiControllerTest`
+- MVC tests: `GuestControllerTest`
+- Role verification: both of the above
+- Repository: `HotelRepositoryTest`
+- Service: `GuestRoomServiceTest`
+
+### Code Coverage Screenshots
+![Screenshot 2025-05-12 200804.png](src/main/resources/static/images/Screenshot%202025-05-12%20200804.png)
+![Screenshot 2025-05-12 200723.png](src/main/resources/static/images/Screenshot%202025-05-12%20200723.png)
