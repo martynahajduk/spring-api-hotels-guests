@@ -331,3 +331,6 @@ password=*(no password)*
 ### Code Coverage Screenshots
 ![Screenshot 2025-04-26 2006279.png](src/main/resources/static/images/Screenshot%202025-04-26%202006279.png)
 ![Screenshot 2025-04-26 2006280.png](src/main/resources/static/images/Screenshot%202025-04-26%202006280.png)
+
+### CI/CD: GitLab pipeline
+You can find successful test report [here](https://gitlab.com/kdg-ti/programming-5/projects-24-25/acs201/martyna.hajduk/spring-backend/-/pipelines/1819884789/test_report?job_name=test).
