@@ -48,10 +48,11 @@ public class GuestRoomApiController {
     @PatchMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or @authorizationService.isOwner(#id, principal)")
     public ResponseEntity<GuestRoomDto> patch(@PathVariable Integer id,
-                                              @RequestBody @Valid GuestRoomDto dto) {
+                                              @RequestBody @Valid GuestRoomDto dto, @AuthenticationPrincipal CustomUserDetails user) {
         GuestRoom updated = guestRoomService.update(id, dto);
         return ResponseEntity.ok(guestRoomMapper.toDto(updated));
     }
+
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or @authorizationService.isOwner(#id, principal)")

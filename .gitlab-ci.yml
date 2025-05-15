@@ -1,0 +1,30 @@
+image: eclipse-temurin:21-jdk-alpine
+
+before_script:
+  - chmod +x ./gradlew
+
+stages:
+  - build
+  - test
+
+build:
+  stage: build
+  script: ./gradlew --build-cache assemble
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    paths:
+      - .gradle
+      - build
+
+test:
+  stage: test
+  script: ./gradlew test -Dspring.profiles.active=test
+  artifacts:
+    when: always
+    reports:
+      junit: build/test-results/test/**/TEST-*.xml
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    paths:
+      - .gradle
+      - build

@@ -29,23 +29,24 @@ public class TestHelper {
         userRepository.deleteAll();
     }
 
+    @Transactional
     public void seedAdmin(String username) {
         if (userRepository.findByUsername(username).isPresent()) return;
         User admin = new User();
         admin.setUsername("admin_test");
         admin.setPassword(passwordEncoder.encode("admin"));
         admin.setRole(Role.ADMIN);
-        userRepository.save(admin);
+        userRepository.saveAndFlush(admin);
     }
 
+    @Transactional
     public void seedUser(String username) {
         if (userRepository.findByUsername(username).isPresent()) return;
-
         User user = new User();
         user.setUsername(username);
         user.setPassword(passwordEncoder.encode("user"));
         user.setRole(Role.USER);
-        userRepository.save(user);
+        userRepository.saveAndFlush(user);
     }
 
     @Transactional
@@ -53,20 +54,19 @@ public class TestHelper {
         Hotel hotel = new Hotel();
         hotel.setName(name);
         hotel.setLocation(location);
-        hotel = hotelRepository.save(hotel);
-        return hotel;
+        return hotelRepository.saveAndFlush(hotel);
     }
 
     @Transactional
     public Room createRoom(int number, RoomType type, double price, int floor, Hotel hotel) {
-        //    private Hotel hotel;
+        Hotel managedHotel = hotelRepository.findById(hotel.getHotelId()).orElseThrow();
         Room room = new Room();
         room.setRoomNumber(number);
         room.setRoomType(type);
         room.setPrice(price);
         room.setFloor(floor);
-        room.setHotel(hotel);
-        return roomRepository.save(room);
+        room.setHotel(managedHotel);
+        return roomRepository.saveAndFlush(room);
     }
 
     @Transactional
@@ -76,8 +76,7 @@ public class TestHelper {
         guest.setNationality(nationality);
         guest.setDateOfBirth(dob);
         guest.setHotel(hotel);
-        guest = guestRepository.save(guest);
-        return guest;
+        return guestRepository.saveAndFlush(guest);
     }
 
     @Transactional
@@ -86,55 +85,54 @@ public class TestHelper {
         guestRoom.setGuest(guest);
         guestRoom.setRoom(room);
         guestRoom.setOwner(owner);
-        guestRoom = guestRoomRepository.save(guestRoom);
-        return guestRoom;
+        return guestRoomRepository.saveAndFlush(guestRoom);
     }
 
     public User findUser(String username) {
         return userRepository.findByUsername(username).orElseThrow();
     }
 
-    @Transactional
-    public GuestRoom createFullGuestRoomSetup(
-            String username,
-            String hotelName,
-            String hotelLocation,
-            int roomNumber,
-            RoomType roomType,
-            double price,
-            int floor,
-            String guestName,
-            Nationality nationality,
-            LocalDate dob
-    ) {
-        User owner = findUser(username);
-
-        Hotel hotel = new Hotel();
-        hotel.setName(hotelName);
-        hotel.setLocation(hotelLocation);
-        hotel = hotelRepository.save(hotel);
-
-        Room room = new Room();
-        room.setRoomNumber(roomNumber);
-        room.setRoomType(roomType);
-        room.setPrice(price);
-        room.setFloor(floor);
-        room.setHotel(hotel);
-        room = roomRepository.save(room);
-
-        Guest guest = new Guest();
-        guest.setName(guestName);
-        guest.setNationality(nationality);
-        guest.setDateOfBirth(dob);
-        guest.setHotel(hotel);
-        guest = guestRepository.save(guest);
-
-        GuestRoom guestRoom = new GuestRoom();
-        guestRoom.setGuest(guest);
-        guestRoom.setRoom(room);
-        guestRoom.setOwner(owner);
-        return guestRoomRepository.save(guestRoom);
-    }
+//    @Transactional
+//    public GuestRoom createFullGuestRoomSetup(
+//            String username,
+//            String hotelName,
+//            String hotelLocation,
+//            int roomNumber,
+//            RoomType roomType,
+//            double price,
+//            int floor,
+//            String guestName,
+//            Nationality nationality,
+//            LocalDate dob
+//    ) {
+//        User owner = findUser(username);
+//
+//        Hotel hotel = new Hotel();
+//        hotel.setName(hotelName);
+//        hotel.setLocation(hotelLocation);
+//        hotel = hotelRepository.save(hotel);
+//
+//        Room room = new Room();
+//        room.setRoomNumber(roomNumber);
+//        room.setRoomType(roomType);
+//        room.setPrice(price);
+//        room.setFloor(floor);
+//        room.setHotel(hotel);
+//        room = roomRepository.save(room);
+//
+//        Guest guest = new Guest();
+//        guest.setName(guestName);
+//        guest.setNationality(nationality);
+//        guest.setDateOfBirth(dob);
+//        guest.setHotel(hotel);
+//        guest = guestRepository.save(guest);
+//
+//        GuestRoom guestRoom = new GuestRoom();
+//        guestRoom.setGuest(guest);
+//        guestRoom.setRoom(room);
+//        guestRoom.setOwner(owner);
+//        return guestRoomRepository.save(guestRoom);
+//    }
 
     public String asJson(Object o) throws Exception {
         return objectMapper.writeValueAsString(o);

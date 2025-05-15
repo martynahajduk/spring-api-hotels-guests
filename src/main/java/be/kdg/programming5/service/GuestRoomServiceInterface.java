@@ -11,4 +11,5 @@ public interface GuestRoomServiceInterface {
     GuestRoom add(GuestRoomDto dto, User owner);
     GuestRoom update(Integer id, GuestRoomDto dto);
     void delete(Integer id);
+    GuestRoom getById(Integer id);
 }

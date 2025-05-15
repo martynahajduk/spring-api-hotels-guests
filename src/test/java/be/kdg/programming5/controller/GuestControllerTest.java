@@ -32,13 +32,13 @@ class GuestControllerTest {
         testHelper.seedUser("user_test");
         testHelper.seedAdmin("admin_test");
 
-        testHelper.createFullGuestRoomSetup(
-                "user_test",
-                "Test Hotel", "Test City",
-                801, RoomType.DELUXE, 500, 6,
-                "Test Guest", Nationality.BELGIAN, LocalDate.of(1990, 1, 1)
-        );
+        Hotel hotel = testHelper.createHotel("Test Hotel", "Test City");
+        Room room = testHelper.createRoom(801, RoomType.DELUXE, 500, 6, hotel);
+        Guest guest = testHelper.createGuest("Test Guest", Nationality.BELGIAN, LocalDate.of(1990, 1, 1), hotel);
+        User owner = testHelper.findUser("user_test");
+        testHelper.createGuestRoom(guest, room, owner);
     }
+
 
     @Test
     @WithUserDetails(value = "admin_test", setupBefore = TestExecutionEvent.TEST_EXECUTION)

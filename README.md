@@ -308,19 +308,26 @@ Allowed:
 - See all entity IDs, guests in hotels, and room assignments.
 
 # Testing
-## Week 6 & 8
+## Week 6 & 8 & 10
 ### Spring Test Profile
 - Profile: `test`
 - File: `application-test.properties`
 - Usage: `./gradlew test -Dspring.profiles.active=test`
 
+### Test Database Credentials (H2 in-memory)
+username=sa<br>
+password=*(no password)*
+
 ### Test Classes
 - API tests: `GuestRoomApiControllerTest`
 - MVC tests: `GuestControllerTest`
-- Role verification: both of the above
+- Role verification: `GuestRoomApiControllerTest``GuestControllerTest`
 - Repository: `HotelRepositoryTest`
 - Service: `GuestRoomServiceTest`
+- Mocking tests: `GuestRoomApiControllerUnitTest`, `GuestRoomServiceUnitTest`
+- Tests with `verify(...)`: `GuestRoomApiControllerUnitTest`, `GuestRoomServiceUnitTest`
+
 
 ### Code Coverage Screenshots
-![Screenshot 2025-05-12 200804.png](src/main/resources/static/images/Screenshot%202025-05-12%20200804.png)
-![Screenshot 2025-05-12 200723.png](src/main/resources/static/images/Screenshot%202025-05-12%20200723.png)
+![Screenshot 2025-04-26 2006279.png](src/main/resources/static/images/Screenshot%202025-04-26%202006279.png)
+![Screenshot 2025-04-26 2006280.png](src/main/resources/static/images/Screenshot%202025-04-26%202006280.png)

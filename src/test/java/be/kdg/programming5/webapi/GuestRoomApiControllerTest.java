@@ -40,18 +40,15 @@ class GuestRoomApiControllerTest {
         testHelper.seedUser("user_test");
         testHelper.seedUser("other_user");
 
-        GuestRoom created = testHelper.createFullGuestRoomSetup(
-                "user_test",
-                "Test Hotel", "Test City",
-                601, RoomType.DELUXE, 500, 6,
-                "Test Guest", Nationality.BELGIAN, LocalDate.of(1990, 1, 1)
-        );
+        hotel = testHelper.createHotel("Test Hotel", "Test City");
+        room = testHelper.createRoom(601, RoomType.DELUXE, 500, 6, hotel);
+        guest = testHelper.createGuest("Test Guest", Nationality.BELGIAN, LocalDate.of(1990, 1, 1), hotel);
+        User owner = testHelper.findUser("user_test");
+        GuestRoom guestRoom = testHelper.createGuestRoom(guest, room, owner);
 
-        guestRoomId = created.getId();
-        guest = created.getGuest();
-        room = created.getRoom();
-        hotel = guest.getHotel();
+        guestRoomId = guestRoom.getId();
     }
+
 
     @Test
     @WithUserDetails(value = "user_test", setupBefore = TestExecutionEvent.TEST_EXECUTION)

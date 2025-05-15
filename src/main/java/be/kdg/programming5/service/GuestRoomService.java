@@ -4,6 +4,7 @@ import be.kdg.programming5.domain.Guest;
 import be.kdg.programming5.domain.GuestRoom;
 import be.kdg.programming5.domain.Room;
 import be.kdg.programming5.domain.User;
+import be.kdg.programming5.domain.exceptions.NotFoundException;
 import be.kdg.programming5.repository.GuestRepository;
 import be.kdg.programming5.repository.GuestRoomRepository;
 import be.kdg.programming5.repository.RoomRepository;
@@ -50,27 +51,37 @@ public class GuestRoomService implements GuestRoomServiceInterface {
         return guestRoomRepository.save(guestRoom);
     }
 
-    @Override
     @Transactional
+    @Override
     public GuestRoom update(Integer id, GuestRoomDto dto) {
         GuestRoom guestRoom = guestRoomRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("GuestRoom not found"));
+                .orElseThrow(() -> new NotFoundException("GuestRoom not found"));
 
         Guest guest = guestRepository.findById(dto.guestId())
-                .orElseThrow(() -> new IllegalArgumentException("Guest not found"));
+                .orElseThrow(() -> new NotFoundException("Guest not found"));
 
         Room room = roomRepository.findByHotel_HotelIdAndRoomNumber(dto.hotelId(), dto.roomNumber())
-                .orElseThrow(() -> new IllegalArgumentException("Room not found in guest's hotel"));
-
+                .orElseThrow(() -> new NotFoundException("Room not found"));
 
         guestRoom.setGuest(guest);
         guestRoom.setRoom(room);
         return guestRoomRepository.save(guestRoom);
     }
 
-    @Override
     @Transactional
+    @Override
     public void delete(Integer id) {
-        guestRoomRepository.deleteById(id);
+        GuestRoom guestRoom = guestRoomRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("GuestRoom not found"));
+        guestRoomRepository.delete(guestRoom);
     }
+
+    @Transactional
+    @Override
+    public GuestRoom getById(Integer id) {
+        return guestRoomRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("GuestRoom not found"));
+    }
+
+
 }
