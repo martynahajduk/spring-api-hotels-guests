@@ -12,4 +12,5 @@ public interface GuestRoomServiceInterface {
     GuestRoom update(Integer id, GuestRoomDto dto);
     void delete(Integer id);
     GuestRoom getById(Integer id);
+    List<GuestRoomDto> searchByGuestName(String guestName);
 }

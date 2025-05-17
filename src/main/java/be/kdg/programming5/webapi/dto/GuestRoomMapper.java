@@ -14,6 +14,10 @@ public interface GuestRoomMapper {
 
     @Mapping(target = "guestId", source = "guest.guestId")
     @Mapping(target = "roomNumber", source = "room.roomNumber")
+    @Mapping(source = "guest.name", target = "guestName")
     @Mapping(target = "hotelId", source = "room.hotel.hotelId")
     GuestRoomDto toDto(GuestRoom guestRoom);
+
+    @Mapping(source = "guestId", target = "guest.guestId")
+    GuestRoom toEntity(GuestRoomDto dto);
 }

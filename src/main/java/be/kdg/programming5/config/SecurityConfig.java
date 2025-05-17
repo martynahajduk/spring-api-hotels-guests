@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -20,6 +21,10 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(final HttpSecurity security) throws Exception {
         return security
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.POST, "/api/guest-rooms").permitAll() //TODO test
+                        .requestMatchers(HttpMethod.GET, "/api/guest-rooms/search").permitAll() //TODO test
+                        .requestMatchers("/api/**").permitAll()
+
                         .requestMatchers(HttpMethod.GET, "/", "/login", "/css/**", "/js/**", "/images/**", "/webjars/**", "/api/public", "/hotels").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/guests", "/api/guests/{id}").permitAll()
                         .requestMatchers(HttpMethod.GET, "/mainmenu", "/hotels/hotel/{id}", "/guests/guest/{id}","/guests").hasAnyRole("USER", "ADMIN")
@@ -42,7 +47,9 @@ public class SecurityConfig {
                             }
                         }))
                 .formLogin(login -> login.loginPage("/login").permitAll())
-//                .csrf(AbstractHttpConfigurer::disable)
+                .csrf(csrf -> csrf.ignoringRequestMatchers(
+                        AntPathRequestMatcher.antMatcher(HttpMethod.POST, "/api/guest-rooms") // for Client testing only
+                ))
                 .build();
     }
 

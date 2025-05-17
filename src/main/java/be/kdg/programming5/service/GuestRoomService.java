@@ -9,10 +9,13 @@ import be.kdg.programming5.repository.GuestRepository;
 import be.kdg.programming5.repository.GuestRoomRepository;
 import be.kdg.programming5.repository.RoomRepository;
 import be.kdg.programming5.webapi.dto.GuestRoomDto;
+import be.kdg.programming5.webapi.dto.GuestRoomMapper;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 
 @Service
@@ -20,11 +23,13 @@ public class GuestRoomService implements GuestRoomServiceInterface {
     private final GuestRoomRepository guestRoomRepository;
     private final GuestRepository guestRepository;
     private final RoomRepository roomRepository;
+    private final GuestRoomMapper guestRoomMapper;
 
-    public GuestRoomService(GuestRoomRepository guestRoomRepository, GuestRepository guestRepository, RoomRepository roomRepository) {
+    public GuestRoomService(GuestRoomRepository guestRoomRepository, GuestRepository guestRepository, RoomRepository roomRepository, GuestRoomMapper guestRoomMapper) {
         this.guestRoomRepository = guestRoomRepository;
         this.guestRepository = guestRepository;
         this.roomRepository = roomRepository;
+        this.guestRoomMapper = guestRoomMapper;
     }
 
     @Transactional
@@ -46,8 +51,9 @@ public class GuestRoomService implements GuestRoomServiceInterface {
         GuestRoom guestRoom = new GuestRoom();
         guestRoom.setGuest(guest);
         guestRoom.setRoom(room);
-        guestRoom.setOwner(owner);
-
+        if (owner != null) {
+            guestRoom.setOwner(owner);
+        }
         return guestRoomRepository.save(guestRoom);
     }
 
@@ -81,6 +87,14 @@ public class GuestRoomService implements GuestRoomServiceInterface {
     public GuestRoom getById(Integer id) {
         return guestRoomRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("GuestRoom not found"));
+    }
+
+    @Override
+    public List<GuestRoomDto> searchByGuestName(String guestName) {
+        List<GuestRoom> guestRooms = guestRoomRepository.findWithDetailsByGuestName(guestName);
+        return guestRooms.stream()
+                .map(guestRoomMapper::toDto)
+                .toList();
     }
 
 
