@@ -8,6 +8,7 @@ import be.kdg.programming5.domain.exceptions.NotFoundException;
 import be.kdg.programming5.repository.GuestRepository;
 import be.kdg.programming5.repository.GuestRoomRepository;
 import be.kdg.programming5.repository.RoomRepository;
+import be.kdg.programming5.webapi.dto.BookingDto;
 import be.kdg.programming5.webapi.dto.BookingMapper;
 import be.kdg.programming5.webapi.dto.GuestRoomDto;
 import be.kdg.programming5.webapi.dto.GuestRoomMapper;
@@ -94,7 +95,7 @@ public class GuestRoomService implements GuestRoomServiceInterface {
     }
 
     @Override
-    public List<GuestRoomDto> searchByGuestName(String guestName) {
+    public List<BookingDto> searchByGuestName(String guestName) {
         List<GuestRoom> guestRooms = guestRoomRepository.findWithDetailsByGuestName(guestName);
         return guestRooms.stream()
                 .map(bookingMapper::toDto)

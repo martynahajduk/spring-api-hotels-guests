@@ -5,6 +5,7 @@ import be.kdg.programming5.domain.User;
 import be.kdg.programming5.security.CustomUserDetails;
 import be.kdg.programming5.service.AuthorizationService;
 import be.kdg.programming5.service.GuestRoomService;
+import be.kdg.programming5.webapi.dto.BookingDto;
 import be.kdg.programming5.webapi.dto.GuestRoomDto;
 import be.kdg.programming5.webapi.dto.GuestRoomMapper;
 import jakarta.annotation.security.PermitAll;
@@ -67,7 +68,7 @@ public class GuestRoomApiController {
     }
 
     @GetMapping("/search")
-    public List<GuestRoomDto> search(@RequestParam String guestName) {
+    public List<BookingDto> search(@RequestParam String guestName) {
         return guestRoomService.searchByGuestName(guestName);
     }
 

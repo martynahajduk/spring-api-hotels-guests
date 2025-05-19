@@ -15,9 +15,9 @@ public interface BookingMapper {
     @Mapping(target = "roomNumber", source = "room.roomNumber")
     @Mapping(source = "guest.name", target = "guestName")
     @Mapping(target = "hotelId", source = "room.hotel.hotelId")
-    GuestRoomDto toDto(GuestRoom guestRoom);
+    BookingDto toDto(GuestRoom guestRoom);
 
-    @Mapping(source = "guestId", target = "guest.guestId")
-    GuestRoom toEntity(GuestRoomDto dto);
+//    @Mapping(source = "guestId", target = "guest.guestId")
+//    BookingDto toEntity(BookingDto dto);
 }
 
