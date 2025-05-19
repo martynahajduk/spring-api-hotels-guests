@@ -39,7 +39,7 @@ public class HotelRepositoryTest {
     }
 
     @Test //failure save
-    void testHotelNameMustNotBeNull() { //
+    void testHotelNameMustNotBeNull() {
         Hotel hotel = new Hotel();
         hotel.setLocation("No name hotel");
         assertThrows(DataIntegrityViolationException.class, () -> {

@@ -5,6 +5,7 @@ import be.kdg.programming5.domain.*;
 import be.kdg.programming5.repository.GuestRoomRepository;
 import be.kdg.programming5.repository.GuestRepository;
 import be.kdg.programming5.repository.RoomRepository;
+import be.kdg.programming5.webapi.dto.BookingMapper;
 import be.kdg.programming5.webapi.dto.GuestRoomDto;
 import be.kdg.programming5.webapi.dto.GuestRoomMapper;
 import be.kdg.programming5.domain.exceptions.NotFoundException;
@@ -25,7 +26,8 @@ class GuestRoomServiceUnitTest {
     private GuestRoomRepository guestRoomRepository;
     private GuestRepository guestRepository;
     private RoomRepository roomRepository;
-//    private GuestRoomMapper guestRoomMapper;
+    private GuestRoomMapper guestRoomMapper;
+    private BookingMapper bookingmMapper;
 
     @BeforeEach
     void setUp() {
@@ -33,7 +35,7 @@ class GuestRoomServiceUnitTest {
         guestRepository = mock(GuestRepository.class);
         roomRepository = mock(RoomRepository.class);
 
-        guestRoomService = new GuestRoomService(guestRoomRepository, guestRepository, roomRepository);
+        guestRoomService = new GuestRoomService(guestRoomRepository, guestRepository, roomRepository, guestRoomMapper, bookingmMapper);
     }
 
     @Test

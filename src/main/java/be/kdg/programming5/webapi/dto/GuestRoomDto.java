@@ -6,6 +6,4 @@ public record GuestRoomDto(
         Integer id,
         UUID guestId,
         int roomNumber,
-        UUID hotelId,
-        String guestName
-        ) {}
+        UUID hotelId) {}

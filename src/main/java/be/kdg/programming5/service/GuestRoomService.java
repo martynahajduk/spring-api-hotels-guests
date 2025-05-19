@@ -8,6 +8,7 @@ import be.kdg.programming5.domain.exceptions.NotFoundException;
 import be.kdg.programming5.repository.GuestRepository;
 import be.kdg.programming5.repository.GuestRoomRepository;
 import be.kdg.programming5.repository.RoomRepository;
+import be.kdg.programming5.webapi.dto.BookingMapper;
 import be.kdg.programming5.webapi.dto.GuestRoomDto;
 import be.kdg.programming5.webapi.dto.GuestRoomMapper;
 import jakarta.persistence.EntityNotFoundException;
@@ -24,12 +25,15 @@ public class GuestRoomService implements GuestRoomServiceInterface {
     private final GuestRepository guestRepository;
     private final RoomRepository roomRepository;
     private final GuestRoomMapper guestRoomMapper;
+    private final BookingMapper bookingMapper;
 
-    public GuestRoomService(GuestRoomRepository guestRoomRepository, GuestRepository guestRepository, RoomRepository roomRepository, GuestRoomMapper guestRoomMapper) {
+
+    public GuestRoomService(GuestRoomRepository guestRoomRepository, GuestRepository guestRepository, RoomRepository roomRepository, GuestRoomMapper guestRoomMapper, BookingMapper bookingMapper) {
         this.guestRoomRepository = guestRoomRepository;
         this.guestRepository = guestRepository;
         this.roomRepository = roomRepository;
         this.guestRoomMapper = guestRoomMapper;
+        this.bookingMapper = bookingMapper;
     }
 
     @Transactional
@@ -93,7 +97,7 @@ public class GuestRoomService implements GuestRoomServiceInterface {
     public List<GuestRoomDto> searchByGuestName(String guestName) {
         List<GuestRoom> guestRooms = guestRoomRepository.findWithDetailsByGuestName(guestName);
         return guestRooms.stream()
-                .map(guestRoomMapper::toDto)
+                .map(bookingMapper::toDto)
                 .toList();
     }
 
