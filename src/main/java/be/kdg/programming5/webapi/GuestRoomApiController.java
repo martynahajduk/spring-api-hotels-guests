@@ -42,13 +42,22 @@ public class GuestRoomApiController {
     }
 
     @PostMapping
-//    @PreAuthorize("hasRole('ROLE_ADMIN') or @authorizationService.isOwner(#id, principal)") TODO i needed to put it in comment for week 11 assignment
+    @PreAuthorize("hasRole('ROLE_ADMIN') or @authorizationService.isOwner(#id, principal)")
     public ResponseEntity<GuestRoomDto> add(@RequestBody @Valid GuestRoomDto dto,
+                                            @AuthenticationPrincipal CustomUserDetails user) {
+        GuestRoom guestRoom = guestRoomService.add(dto, user.getUser());
+        return ResponseEntity.status(HttpStatus.CREATED).body(guestRoomMapper.toDto(guestRoom));
+    }
+
+    @PostMapping("/add")
+//    @PreAuthorize("hasRole('ROLE_ADMIN') or @authorizationService.isOwner(#id, principal)")
+    public ResponseEntity<GuestRoomDto> addNew(@RequestBody @Valid GuestRoomDto dto,
                                             @AuthenticationPrincipal CustomUserDetails user) {
         User owner = (user != null) ? user.getUser() : null;
         GuestRoom guestRoom = guestRoomService.add(dto, owner);
         return ResponseEntity.status(HttpStatus.CREATED).body(guestRoomMapper.toDto(guestRoom));
     }
+
 
 
     @PatchMapping("/{id}")

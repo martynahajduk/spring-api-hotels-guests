@@ -1,59 +1,101 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+  <head>
     <meta charset="UTF-8">
     <title th:text="#{add_guest}"></title>
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
-    <script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
-    <script defer th:src="@{/js/add-guest.js}"></script>
-</head>
-<body>
-<header th:insert="~{fragments/navbar.html}"></header>
-<div class="container px-5">
-    <h1 class="text-center" th:text="#{add_guest}"></h1><br>
-    <form id="addGuestForm">
+    <link rel="stylesheet" th:href="@{/css/bundle-index.css}" />
+    <script defer th:src="@{/js/bundle-index.js}"></script>
+    <script defer th:src="@{/js/bundle-add-guest.js}"></script>
+  </head>
+  <body>
+    <header th:insert="~{fragments/navbar.html}"></header>
+    <div class="container px-5">
+      <h1 class="text-center" th:text="#{add_guest}"></h1>
+      <br>
+      <div id="errorBox" class="alert d-none"></div>
+      <form id="addGuestForm">
         <div class="row mb-3">
-            <label for="name" class="col-sm-2 col-form-label" th:text="#{guest_name}"></label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="name" placeholder="Enter name">
-            </div>
+          <label
+            for="name"
+            class="col-sm-2 col-form-label"
+            th:text="#{guest_name}"
+          ></label>
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              placeholder="Enter name"
+            >
+          </div>
         </div>
         <div class="row mb-3">
-            <label for="birthDate" class="col-sm-2 col-form-label" th:text="#{birth_date}"></label>
-            <div class="col-sm-10">
-                <input type="date" class="form-control" id="birthDate">
-            </div>
+          <label
+            for="birthDate"
+            class="col-sm-2 col-form-label"
+            th:text="#{birth_date}"
+          ></label>
+          <div class="col-sm-10">
+            <input type="date" class="form-control" id="birthDate">
+          </div>
         </div>
         <div class="row mb-3">
-            <label for="nationality" class="col-sm-2 col-form-label" th:text="#{nationality}"></label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="nationality" placeholder="Enter nationality">
-            </div>
+          <label
+            for="nationality"
+            class="col-sm-2 col-form-label"
+            th:text="#{nationality}"
+          ></label>
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              id="nationality"
+              placeholder="Enter nationality"
+            >
+          </div>
         </div>
         <div class="row mb-3">
-            <label for="hotelName" class="col-sm-2 col-form-label" th:text="#{hotel_name}"></label>
-            <div class="col-sm-10">
-                <select class="form-control" id="hotelName">
-                    <option value="">Select a hotel</option>
-                    <option th:each="hotel : ${hotels}" th:value="${hotel.name}" th:text="${hotel.name}"></option>
-                </select>
-            </div>
+          <label
+            for="hotelName"
+            class="col-sm-2 col-form-label"
+            th:text="#{hotel_name}"
+          ></label>
+          <div class="col-sm-10">
+            <select class="form-control" id="hotelName">
+              <option value="">Select a hotel</option>
+              <option
+                th:each="hotel : ${hotels}"
+                th:value="${hotel.name}"
+                th:text="${hotel.name}"
+              >
+              </option>
+            </select>
+          </div>
         </div>
         <div class="row mb-3">
-            <label for="roomNumbers" class="col-sm-2 col-form-label" th:text="#{room_number}"></label>
-            <div class="col-sm-10">
-                <select class="form-control" id="roomNumbers" multiple>
-                    <option value="101">101</option>
-                    <option value="201">201</option>
-                    <option value="301">301</option>
-                    <option value="401">401</option>
-                    <option value="501">501</option>
-                </select>
-            </div>
+          <label
+            for="roomNumbers"
+            class="col-sm-2 col-form-label"
+            th:text="#{room_number}"
+          ></label>
+          <div class="col-sm-10">
+            <select class="form-control" id="roomNumbers" multiple>
+              <option value="101">101</option>
+              <option value="201">201</option>
+              <option value="301">301</option>
+              <option value="401">401</option>
+              <option value="501">501</option>
+            </select>
+          </div>
         </div>
-        <button type="submit" class="btn btn-danger" th:text="#{add_guest_button}"></button>
-    </form>
-</div>
-<footer th:insert="~{fragments/footer.html}"></footer>
-</body>
+        <button
+          type="submit"
+          class="btn btn-danger"
+          th:text="#{add_guest_button}"
+        >
+        </button>
+      </form>
+    </div>
+    <footer th:insert="~{fragments/footer.html}"></footer>
+  </body>
 </html>

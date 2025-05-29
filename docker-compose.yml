@@ -3,11 +3,11 @@ services:
     image: postgres:17.2-alpine
     restart: always
     environment:
-      POSTGRES_DB: 'guesthoteldb'
-      POSTGRES_USER: 'spring'
-      POSTGRES_PASSWORD: 'spring'
+      POSTGRES_DB: "guesthoteldb"
+      POSTGRES_USER: "spring"
+      POSTGRES_PASSWORD: "spring"
     ports:
-      - '5434:5432'
+      - "5434:5432"
     volumes:
       - db-data:/var/lib/postgresql/data
 volumes:

@@ -35,3 +35,8 @@ out/
 
 ### VS Code ###
 .vscode/
+
+src/main/resources/static/css/bundle-*.css*
+src/main/resources/static/js/bundle-*.js*
+node_modules/
+src/main/resources/static/js/*.woff*

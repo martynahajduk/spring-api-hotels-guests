@@ -1,28 +1,40 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Database Error</title>
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
-    <script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
-</head>
-<body>
-<div class="d-flex justify-content-center align-items-center vh-100">
-    <div class="card border-danger shadow-lg" style="max-width: 600px; width: 100%;">
+    <link
+      rel="stylesheet"
+      th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"
+    />
+    <script
+      defer
+      th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"
+    ></script>
+  </head>
+  <body>
+    <div class="d-flex justify-content-center align-items-center vh-100">
+      <div
+        class="card border-danger shadow-lg"
+        style="max-width: 600px; width: 100%"
+      >
         <div class="card-header bg-danger text-white text-center">
-            <h2>Database Error</h2>
+          <h2>Database Error</h2>
         </div>
         <div class="card-body text-center">
-            <p class="alert alert-danger" th:text="#{error.operation.failed}"></p>
-            <p>
-                <code th:text="${errorMessage}"></code>
-            </p>
-            <hr />
-            <a th:href="@{/}" class="btn btn-danger mt-2 px-4" th:text="#{back_to_main}"></a>
+          <p class="alert alert-danger" th:text="#{error.operation.failed}"></p>
+          <p>
+            <code th:text="${errorMessage}"></code>
+          </p>
+          <hr />
+          <a
+            th:href="@{/}"
+            class="btn btn-danger mt-2 px-4"
+            th:text="#{back_to_main}"
+          ></a>
         </div>
+      </div>
     </div>
-</div>
-
-</body>
+  </body>
 </html>

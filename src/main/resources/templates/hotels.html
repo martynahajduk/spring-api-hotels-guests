@@ -1,72 +1,132 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head>
     <meta charset="UTF-8">
     <title th:text="#{hotel_list}"></title>
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
-    <script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
-</head>
-<body>
-<header th:insert="~{fragments/navbar.html}"></header>
+    <link rel="stylesheet" th:href="@{/css/bundle-index.css}" />
+    <script defer th:src="@{/js/bundle-index.js}"></script>
+  </head>
+  <body>
+    <header th:insert="~{fragments/navbar.html}"></header>
 
-<div class="container px-5">
-    <h1 class="text-center" th:text="#{hotel_list}"></h1><br>
+    <div class="container px-5">
+      <h1 class="text-center" th:text="#{hotel_list}"></h1>
+      <br>
 
-    <table class="table table-sm p-5">
+      <table class="table table-sm p-5">
         <tr>
-            <th scope="col" th:text="#{hotel_id}" th:if="${#authorization.expression('hasRole(''ADMIN'')')}"></th>
-            <th scope="col" th:text="#{hotel_name}"></th>
-            <th scope="col" th:text="#{location}" th:if="${#authorization.expression('isAuthenticated()')}"></th>
-            <th scope="col" th:text="#{delete}" th:if="${#authorization.expression('hasRole(''ADMIN'')')}"></th>
+          <th
+            scope="col"
+            th:text="#{hotel_id}"
+            th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
+          >
+          </th>
+          <th scope="col" th:text="#{hotel_name}"></th>
+          <th
+            scope="col"
+            th:text="#{location}"
+            th:if="${#authorization.expression('isAuthenticated()')}"
+          >
+          </th>
+          <th
+            scope="col"
+            th:text="#{delete}"
+            th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
+          >
+          </th>
         </tr>
         <tr th:each="hotel : ${hotels}">
-            <td th:text="${hotel.hotelId}" th:if="${#authorization.expression('hasRole(''ADMIN'')')}"></td>
-            <td th:text="${hotel.name}"></td>
-            <td th:text="${hotel.location}" th:if="${#authorization.expression('isAuthenticated()')}"></td>
-            <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
-                <form th:action="@{/hotels/delete/{id}(id=${hotel.hotelId})}" method="post" style="display:inline;">
-                    <button th:text="#{delete}" type="submit" class="btn btn-danger"></button>
-                </form>
-            </td>
+          <td
+            th:text="${hotel.hotelId}"
+            th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
+          >
+          </td>
+          <td th:text="${hotel.name}"></td>
+          <td
+            th:text="${hotel.location}"
+            th:if="${#authorization.expression('isAuthenticated()')}"
+          >
+          </td>
+          <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+            <form
+              th:action="@{/hotels/delete/{id}(id=${hotel.hotelId})}"
+              method="post"
+              style="display: inline"
+            >
+              <button th:text="#{delete}" type="submit" class="btn btn-danger">
+              </button>
+            </form>
+          </td>
         </tr>
-    </table>
+      </table>
 
-    <div class="container mt-4 p-5">
+      <div class="container mt-4 p-5">
         <div class="row">
-            <div class="col-md-6 mb-4" th:each="hotel : ${hotels}">
-                <a th:href="@{/hotels/hotel/{id}(id=${hotel.hotelId})}" style="text-decoration: none; color: inherit;">
-                    <div class="card mb-3" style="max-width: 540px;">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img th:src="@{'/images/' + ${hotel.name.toLowerCase().replace(' ', '-')} + '.jpg'}"
-                                     class="img-fluid rounded-start"
-                                     th:alt="${hotel.name}" />
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title" th:text="${hotel.name}"></h5>
-                                    <h7 class="card-text" th:text="${hotel.location}" th:if="${#authorization.expression('isAuthenticated()')}"></h7>
-                                </div>
-                            </div>
-                        </div>
+          <div class="col-md-6 mb-4" th:each="hotel : ${hotels}">
+            <a
+              th:href="@{/hotels/hotel/{id}(id=${hotel.hotelId})}"
+              style="text-decoration: none; color: inherit"
+            >
+              <div class="card mb-3" style="max-width: 540px">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img
+                      th:src="@{'/images/' + ${hotel.name.toLowerCase().replace(' ', '-')} + '.jpg'}"
+                      class="img-fluid rounded-start"
+                      th:alt="${hotel.name}"
+                    />
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title" th:text="${hotel.name}"></h5>
+                      <h7
+                        class="card-text"
+                        th:text="${hotel.location}"
+                        th:if="${#authorization.expression('isAuthenticated()')}"
+                      ></h7>
                     </div>
-                </a>
-            </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
         </div>
+      </div>
+
+      <h3
+        class="text-center"
+        th:text="#{filter_hotels}"
+        th:if="${#authorization.expression('isAuthenticated()')}"
+      >
+      </h3>
+      <br>
+      <form action="/hotels/filter" method="post">
+        <div class="row mb-3">
+          <label
+            for="name"
+            class="col-sm-2 col-form-label"
+            th:text="#{hotel_name}"
+          ></label>
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              name="name"
+              required
+            >
+          </div>
+        </div>
+        <button type="submit" class="btn btn-danger" th:text="#{filter_button}">
+        </button>
+      </form>
+      <br>
     </div>
 
-    <h3 class="text-center" th:text="#{filter_hotels}" th:if="${#authorization.expression('isAuthenticated()')}"></h3><br>
-    <form action="/hotels/filter" method="post">
-        <div class="row mb-3">
-            <label for="name" class="col-sm-2 col-form-label" th:text="#{hotel_name}"></label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="name" name="name" required>
-            </div>
-        </div>
-        <button type="submit" class="btn btn-danger" th:text="#{filter_button}"></button>
-    </form><br>
-</div>
-
-<footer th:insert="~{fragments/footer.html}"></footer>
-</body>
+    <footer th:insert="~{fragments/footer.html}"></footer>
+  </body>
 </html>

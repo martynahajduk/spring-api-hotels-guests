@@ -1,0 +1,15 @@
+@import "../../../node_modules/bootswatch/dist/lumen/variables";
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+@import "../../../node_modules/bootswatch/dist/lumen/bootswatch";
+@import "../../../node_modules/bootstrap-icons/font/bootstrap-icons.css";
+
+#errorBox {
+  border: 2px dashed $red;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 1rem;
+  color: $pink;
+  background-color: lighten($danger, 70%);
+  padding: 1rem;
+  margin-top: 1rem;
+}

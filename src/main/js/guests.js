@@ -1,12 +1,12 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener('DOMContentLoaded', function() {
     // Fetch all guests on page load
-    fetch("/api/guests")
+    fetch('/api/guests')
         .then(response => response.json())
         .then(guests => {
-            const guestList = document.getElementById("guestList");
+            const guestList = document.getElementById('guestList')
 
             guests.forEach(guest => {
-                const row = document.createElement("tr");
+                const row = document.createElement('tr')
 
                 row.innerHTML = `
                     <td>${guest.guestId}</td>
@@ -18,30 +18,30 @@ document.addEventListener("DOMContentLoaded", function() {
                     <td>
                         <button class="btn btn-danger remove-guest-button" data-guest-id="${guest.guestId}">Delete</button>
                     </td>
-                `;
-                guestList.appendChild(row);
-            });
+                `
+                guestList.appendChild(row)
+            })
 
             document.querySelectorAll('.remove-guest-button').forEach(button => {
                 button.addEventListener('click', async function() {
-                    const guestId = button.getAttribute('data-guest-id');
+                    const guestId = button.getAttribute('data-guest-id')
 
                     const response = await fetch(`/api/guests/${guestId}`, {
                         method: 'DELETE',
                         headers: {
                             'Content-Type': 'application/json'
                         }
-                    });
+                    })
 
                     if (response.ok) {
                         // Remove the guest row from the table
-                        const guestRow = button.closest('tr');
-                        guestRow.remove();
+                        const guestRow = button.closest('tr')
+                        guestRow.remove()
                     } else {
-                        alert('Error: Unable to delete guest');
+                        alert('Error: Unable to delete guest')
                     }
-                });
-            });
+                })
+            })
         })
-        .catch(error => console.error("Error fetching guests:", error));
-});
+        .catch(error => console.error('Error fetching guests:', error))
+})

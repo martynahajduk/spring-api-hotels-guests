@@ -2,7 +2,9 @@ plugins {
     java
     id("org.springframework.boot") version "3.4.2"
     id("io.spring.dependency-management") version "1.1.7"
+    id("com.github.node-gradle.node") version "7.1.0"
 }
+
 
 group = "be.kdg"
 version = "0.0.1-SNAPSHOT"
@@ -23,7 +25,7 @@ dependencies {
     implementation ("org.springframework.boot:spring-boot-starter-web")
     implementation ("org.springframework.boot:spring-boot-starter-security")
     implementation ("org.thymeleaf.extras:thymeleaf-extras-springsecurity6")
-    implementation("org.webjars:bootstrap:5.3.3")
+//    implementation("org.webjars:bootstrap:5.3.3")
     runtimeOnly ("org.postgresql:postgresql:42.7.5")
     testRuntimeOnly ("org.junit.platform:junit-platform-launcher")
     implementation("org.springframework.boot:spring-boot-starter-validation")
@@ -38,4 +40,8 @@ dependencies {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks.named("processResources") {
+    dependsOn("npm_run_build")
 }
