@@ -398,6 +398,7 @@ You can find successful test report [here](https://gitlab.com/kdg-ti/programming
 
 ### Custom Client-Side Validation
 
+
 - **Form validated:** Guest Add Form
 - **Where to find it:**
    - **URL:** [Add Guest](http://localhost:8080/guests/addguest)
