@@ -191,7 +191,7 @@ GET http://localhost:8080/api/guests
 
 ### Searching for one guest
 
-#### (UUID changes each time, so it doesn't work with this UUID anymore)
+#### UUID changes each time when using create-drop, so it doesn't work with this UUID anymore, it works, just try with actual uuid from database :)
 
 GET http://localhost:8080/api/guests/7c0d0d1a-9fe8-4c45-8c8a-d0ffbcd1ae79
 <br>Accept: application/json
@@ -221,7 +221,7 @@ GET http://localhost:8080/api/guests/00000000-0000-0000-0000-000000000000
 
 ### Deleting guest
 
-#### (UUID changes each time, so it doesn't work with this UUID anymore)
+#### UUID changes each time when using create-drop, so it doesn't work with this UUID anymore, it works, just try with actual uuid from database :)
 
 DELETE http://localhost:8080/api/guests/1242cb96-305f-4ced-a8f6-4fb096c65da7
 
@@ -384,3 +384,44 @@ password=_(no password)_
 ### CI/CD: GitLab pipeline
 
 You can find successful test report [here](https://gitlab.com/kdg-ti/programming-5/projects-24-25/acs201/martyna.hajduk/spring-backend/-/pipelines/1819884789/test_report?job_name=test).
+
+## Week 12
+### Bootstrap Icon
+
+**Icons used:**  
+`bi-building`, `bi-building-add`, `bi-person`, `bi-person-plus`
+
+**Used in pages:**
+- [/](http://localhost:8080/mainmenu)
+- [/mainmenu](http://localhost:8080/)
+- **Usage:** Appears in cards in `index.html` and `mainmenu.html`.
+
+### Custom Client-Side Validation
+
+- **Form validated:** Guest Add Form
+- **Where to find it:**
+   - **URL:** [Add Guest](http://localhost:8080/guests/addguest)
+   - **Source file:** `js/guest-validation.js`,`js/add-guest.js`
+- **Description:**  
+  The form validates that all required fields (guestId, roomNumber, hotelId) are filled in before allowing submission. If any are missing or invalid, submission is blocked and user feedback is shown.
+
+### Extra JavaScript Dependencies
+#### 1. `dayjs.js`
+
+- **Where to find it:**
+   - **URL:** [Add Guest](http://localhost:8080/guests/addguest)
+   - **Source file:** `js/age.js`,`js/add-guest.js`
+- **Purpose:**  
+Checks if added guest is above 18, if not - gives a warning that guest is below 18 and says the actual age.
+- **How to use:**  
+Just try to add the guest below 18.
+
+
+#### 2. `hotkeys.js`
+
+- **Where to find it:**
+   - **URL:** [Add Guest](http://localhost:8080/guests/addguest)
+   - **Source file:** `js/hotkey-setup.js`,`js/add-guest.js`
+- **How to use:**
+   - `Ctrl+Enter` you can submit form automatically using this custom shortcut.
+
